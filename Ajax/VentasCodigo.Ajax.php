@@ -9,7 +9,7 @@ class AjaxGetCode {
       ============================================= */
     public function ajaxGetCode() {
         $respuesta = VentasControlador::ctrGetCode();
-        if(count($respuesta) > 0){
+        if($respuesta){
           
             $codigo = $respuesta["Codigo"];
                  

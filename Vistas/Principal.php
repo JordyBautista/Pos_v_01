@@ -159,11 +159,18 @@ session_start();
         <script src="Vistas/js/Perfil.js" ></script>
         <script src="Vistas/js/Usuarios.js"></script>
         <script src="Vistas/js/Clientes.js"></script>
-        <script src="Vistas/js/Ventas.js"></script>
         <script src="Vistas/js/Compras.js"></script>
-        <script src="Vistas/js/CrearCompra.js"></script>
         <script src="Vistas/js/CrearVentas.js"></script>
         <script src="Vistas/js/Empresa.js"></script>
          <script src="Vistas/js/ProductosAlquiler.js"></script>
+        <?php  if (isset($_GET["Ruta"])) {?>
+          <?php   if ($_GET["Ruta"] == "CrearVenta"){ ?>
+
+          <script src="Vistas/js/Ventas.js"></script>
+          <?php } ?>
+          <?php   if ($_GET["Ruta"] == "CrearCompra"){ ?>
+          <script src="Vistas/js/CrearCompra.js"></script>
+          <?php } ?>
+        <?php } ?>
 
 </html>

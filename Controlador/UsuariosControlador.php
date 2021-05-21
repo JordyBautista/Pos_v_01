@@ -24,34 +24,38 @@ class UsuariosControlador {
                 $item = "Usuario";
                 $valor = $_POST["txtUsuario"];
                 $respuesta = UsuariosModelo::mdlMostrarUsuarios($tabla, $item, $valor);
-
-                if ($respuesta["Usuario"] == $_POST["txtUsuario"] && $respuesta["Password"] == $_POST["txtContraseña"]) {
-
-
-                    if ($respuesta["Estado"] == 1) {
-
-                        $_SESSION["iniciarSesion"] = "ok";
-
-                        $item1 = "idPersonal";
-                        $valor1 = $respuesta["idUsuario"];
-                        $Personal = PersonalControlador::ctrMostrarPersonal($item1, $valor1);
-                        $item2 = 'idPerfil';
-                        $valor = $respuesta["idPerfil"];
-                        $orden = 'idPerfil';
-                        $Perfil = PerfilControlador::ctrMostrarPerfil($item, $valor, $orden);
-
-                        $_SESSION["idPersonal"] = $Personal["idPersonal"];
-                        $_SESSION["Nombres"] = $Personal["Nombres"];
-                        $_SESSION["Apellidos"] = $Personal["Apellidos"];
-                        $_SESSION["Foto"] = $Personal["Foto"];
-                        $_SESSION["Perfil"] = $respuesta["Perfil"];
-
-                    echo '<script>window.location = "Inicio";</script>';
+                if ($respuesta) {
+                    
+                    if ($respuesta["Usuario"] == $_POST["txtUsuario"] && $respuesta["Password"] == $_POST["txtContraseña"]) {
+    
+    
+                        if ($respuesta["Estado"] == 1) {
+                            $_SESSION["iniciarSesion"] = "ok";
+    
+                            $item1 = "idPersonal";
+                            $valor1 = $respuesta["idUsuario"];
+                            $Personal = PersonalControlador::ctrMostrarPersonal($item1, $valor1);
+                            $item2 = 'idPerfil';
+                            $valor = $respuesta["idPerfil"];
+                            $orden = 'idPerfil';
+                            $Perfil = PerfilControlador::ctrMostrarPerfil($orden, $respuesta['idPerfil'], $orden);
+    
+                            $_SESSION["idPersonal"] = $Personal["idPersonal"];
+                            $_SESSION["idUsuario"] = $respuesta["idUsuario"];
+                            $_SESSION["Nombres"] = $Personal["Nombres"];
+                            $_SESSION["Apellidos"] = $Personal["Apellidos"];
+                            $_SESSION["Foto"] = $Personal["Foto"];
+                            $_SESSION["Perfil"] = $Perfil["Perfil"];
+    
+                            echo '<script>window.location = "Inicio";</script>';
+                        } else {
+                            echo '<br><div class="alert alert-danger">El usuario aún no está activado</div>';
+                        }
                     } else {
-                        echo '<br><div class="alert alert-danger">El usuario aún no está activado</div>';
+    
+                        echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
                     }
-                } else {
-
+                }else{
                     echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
                 }
 

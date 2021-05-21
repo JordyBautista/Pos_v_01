@@ -6,7 +6,9 @@ class VentasModelo {
     /* =============================================
       CREAR Productos
       ============================================= */
-
+      public function __construct()
+      {
+      }
       static public function mdlGetCode(){
 
         $stmt = ConexionBD::Conecction()->prepare("SELECT Codigo FROM ventas order by idVenta  desc limit 1");
@@ -15,26 +17,38 @@ class VentasModelo {
       }
 
     static public function mdlCrearVenta($tabla, $datos) {
-
-        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO tabla(Codigo, idCliente, idVendedor, Impuesto, Neto, Total, MetodoPago,Estado) VALUES (:Codigo,:idCliente,:idVendedor,:Impuesto,:Neto,:Total,:MetodoPago,:Estado)");
-
-        $stmt->bindParam(":Codigo", $datos["Codigo"], PDO::PARAM_STR);
+        $sql = ConexionBD::Conecction();
+        $stmt = $sql->prepare("INSERT INTO ".$tabla."(Codigo, idCliente, idVendedor, Impuesto, Neto,Descuento,tipoVenta, Total, MetodoPago,Estado) VALUES (:Codigo,:idCliente,:idVendedor,:Impuesto,:Neto,:Descuento,:tipoVenta,:Total,:MetodoPago,:Estado)");
+        $detault = '1';
+        $idUsuario = $datos["idUsuario"];
+        $stmt->bindParam(":Codigo", $datos["codigoVenta"], PDO::PARAM_STR);
         $stmt->bindParam(":idCliente", $datos["idCliente"], PDO::PARAM_STR);
-        $stmt->bindParam(":idVendedor", $datos["idVendedor"], PDO::PARAM_STR);
-        $stmt->bindParam(":Impuesto", $datos["Impuesto"], PDO::PARAM_STR);
-        $stmt->bindParam(":Neto", $datos["Neto"], PDO::PARAM_STR);
-        $stmt->bindParam(":Total", $datos["Total"], PDO::PARAM_STR);
-        $stmt->bindParam(":MetodoPago", $datos["MetodoPago"], PDO::PARAM_STR);
-        $stmt->bindParam(":Estado", $datos["Estado"], PDO::PARAM_STR);
+        $stmt->bindParam(":idVendedor", $idUsuario, PDO::PARAM_STR);
+        $stmt->bindParam(":Impuesto", $datos["igv"], PDO::PARAM_STR);
+        $stmt->bindParam(":Neto", $datos["subtotal"], PDO::PARAM_STR);
+        $stmt->bindParam(":Descuento", $datos["dscto"], PDO::PARAM_STR);
+        $stmt->bindParam(":tipoVenta", $datos["tipoVenta"], PDO::PARAM_STR);
+        $stmt->bindParam(":Total", $datos["totalfinal"], PDO::PARAM_STR);
+        $stmt->bindParam(":MetodoPago", $datos["metodoPago"], PDO::PARAM_STR);
+        $stmt->bindParam(":Estado", $detault , PDO::PARAM_STR_CHAR);
         
-
         if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
+            $id = $sql->lastInsertId();
+            return $id;
+        }else{
+            return 0;
         }
-        $stmt->close();
-        $stmt = null;
+        
+    }
+
+    static public function mdlCrearVentaDetalle($tabla, $datos, $id) {
+
+        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO ".$tabla."(idVentaDV, idProductoDV, cantidad, importe) VALUES (:idVentaDV,:idProductoDV,:cantidad,:importe)");
+        $stmt->bindParam(":idVentaDV", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":idProductoDV", $datos->idProducto, PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":cantidad", $datos->cantidad, PDO::PARAM_INT);
+        $stmt->bindParam(":importe", $datos->total, PDO::PARAM_STR);
+        return $stmt->execute();
     }
     
     

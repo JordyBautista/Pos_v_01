@@ -56,23 +56,26 @@ $('[data-mask]').inputmask();
             year = fecha.getFullYear();
 
         // Accedemos a los elementos del DOM para agregar mas adelante sus correspondientes valores
-        var pDiaSemana = document.getElementById('diaSemana'),
-            pDia = document.getElementById('dia'),
-            pMes = document.getElementById('mes'),
-            pYear = document.getElementById('year');
+        var pDiaSemana = document.getElementById('diaSemana');
+        if (document.getElementById('diaSemana') != undefined) {
+            
+            var pDia = document.getElementById('dia');
+            var pMes = document.getElementById('mes');
+            var pYear = document.getElementById('year');
 
         
-        // Obtenemos el dia se la semana y lo mostramos
-        var semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
-        pDiaSemana.textContent = semana[diaSemana];
+            // Obtenemos el dia se la semana y lo mostramos
+            var semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+            pDiaSemana.textContent = semana[diaSemana];
 
-        // Obtenemos el dia del mes
-        pDia.textContent = dia;
+            // Obtenemos el dia del mes
+            pDia.textContent = dia;
 
-        // Obtenemos el Mes y año y lo mostramos
-        var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-        pMes.textContent = meses[mes];
-        pYear.textContent = year;
+            // Obtenemos el Mes y año y lo mostramos
+            var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            pMes.textContent = meses[mes];
+            pYear.textContent = year;
+        }
 
        
        

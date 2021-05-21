@@ -7,6 +7,15 @@ class ProductosModelo {
       CREAR Productos
       ============================================= */
 
+    
+      static public function actualizar_stock($stock, $idProducto){
+        $stmt = ConexionBD::Conecction()->prepare("UPDATE productos SET  Stock=:Stock  WHERE idProducto=:idProducto");
+
+        $stmt->bindParam(":Stock", $stock, PDO::PARAM_INT);
+        $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
+        return $stmt->execute();
+      }
+
     static public function mdlCrearProducto($tabla, $datos) {
 
         $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla(idProducto, CodigoProveedor, NombreProducto, Descripcion, CodigoMarca, CodigoPresentacion, CodigoCategoria,Fotografia,Stock,StockMaximo,StockMinimo,PrecioCompra,PrecioVenta,VentasProducto)VALUES(:idProducto,:CodigoProveedor,:NombreProducto,:Descripcion,:CodigoMarca,:CodigoPresentacion,:CodigoCategoria,:Fotografia,:Stock,:StockMaximo,:StockMinimo,:PrecioCompra,:PrecioVenta,:VentasProducto)");

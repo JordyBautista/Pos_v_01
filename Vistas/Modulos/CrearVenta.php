@@ -184,7 +184,7 @@
 <div class="modal fade" id="ModalPagosCompras" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
-        <form method="post" enctype="multipart/form-data" id="ModalVenta">
+        <div enctype="multipart/form-data" id="ModalVenta">
             <div class="modal-content">
                 <div class="modal-header pt-3 pb-2">
                     <h5 class="modal-title"><span class="fas fa-plus-square" id="TituloModal"> Facturar Venta</span></h5>
@@ -198,12 +198,8 @@
                         <div class="form-group col-md-6">
                             <label class="font-weight-normal">Seleccione metodo de pago</label>
                             <div class="input-group">
-                                <select class="form-control form-control-sm" required=>
-                                    <option selected>Seleccionar</option>
-                                    <option>Efectivo</option>
-                                    <option>Tarjeta de Credito</option>
-                                    <option>Tarjeta de Debito</option>
-
+                                <select id="metodoPago" class="form-control form-control-sm" required=>
+                                    <option value="Efectivo">Efectivo</option>
                                 </select>  
                             </div>
                         </div>
@@ -212,16 +208,22 @@
                             <label class="font-weight-normal">Seleccione comprobante de Venta</label>
                             <div class="input-group">
                                 <select class="form-control form-control-sm" required>
-                                    <option selected>Seleccionar</option>
-                                    <option>Factura</option>
-                                    <option>Boleta</option>
-                                    <option>Baucher</option>
-
+                                    <option value="Boleta">Boleta</option>
                                 </select>  
                             </div>
                         </div>
                     </div>
-
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-normal">Seleccione tipo</label>
+                            <div class="input-group">
+                                <select id="tipoVenta" class="form-control form-control-sm" required=>
+                                    <option value="venta">Venta</option>
+                                    <option value="cotizacion">Cotizacion</option>
+                                </select>  
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-row">                       
                         <div class="form-group col-md-4">
@@ -252,24 +254,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-row">                                             
-                        <div class="form-group col-md-12">
-                            <label class="font-weight-normal">Codigo de transaccion</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                </div>
-                                <input type="text" class="form-control form-control-sm" id="CodigoTransaccion" name="CodigoTransaccion">
-                            </div>
-                        </div>
-
-
-
-                    </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Guardar Venta</button>
+                        <button onclick="guarar_venta()" type="button" class="btn btn-success">Guardar Venta</button>
                     </div>
 
 
@@ -279,10 +266,10 @@
             </div>
 
             <?php
-            $ventas = new VentasControlador();
-            $ventas->ctrCrearVenta();
+            // $ventas = new VentasControlador();
+            // $ventas->ctrCrearVenta();
             ?>
-        </form>
+        </div>
     </div>
 </div>
 

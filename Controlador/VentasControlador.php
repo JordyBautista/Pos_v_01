@@ -12,149 +12,20 @@ class VentasControlador {
         return VentasModelo::mdlGetCode();
     }
 
-    static public function ctrCrearVenta() {
-      if (isset($_POST["codigoVenta"])) {
-          
-          
-          print_r('hola');
-      }
-
-    /*echo"<script>
-            Swal.fire({
-              title: 'VENTA',
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              text: 'Desea guardar la venta!',
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonText:'Si, guardar',
-              cancelButtonText:'No, cancelar',
-              allowOutsideClick:false,
-              allowEscapeKey:false,
-              allowEnterKey:false,
-              stopKeydownPropagation:false,
-              reverseButtons: false
-              }).then(function(result){
-                if(result.value){
-                  Swal.fire({
-                  type:'warning',
-                  title: 'Desea imprimir el comprobante de pago?',
-                  icon: 'warning',
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  showCancelButton: true,
-                  confirmButtonText: 'SI, Guardar',
-                  cancelButtonText: 'No, Guardar!',
-                  allowOutsideClick:false,
-                  allowEscapeKey:false,
-                  allowEnterKey:false,
-                  stopKeydownPropagation:false,
-                  reverseButtons: false
-                  }).then(function(resultt){
-                    if(resultt.value){
-                      Swal.fire({
-                                type: 'success',
-                                title: '¡La venta a sido guardado satisfactoriamente!',
-                                showConfirmButton: true,
-                                confirmButtonText: 'Cerrar'
-
-                        }).then(function(resulttt){
-                    if(resulttt.value){
-                            window.open('http://localhost/Pos_v_01/Categorias', 'Comprobante de pago' , 'top=100,left=100,width=900,height=500,scrollbars=YES')
-                       window.location ='Ventas';
-                                }})
-
-                      }else if(resultt.dismiss === Swal.DismissReason.cancel){
-                                  Swal.fire({
-                                            type: 'success',
-                                            title: '¡La venta a sido guardado satisfactoriamente!',
-                                            showConfirmButton: true,
-                                            confirmButtonText: 'Cerrar'
-                                    }).then(function(resulttt){
-                    if(resulttt.value){
-                             window.location ='Ventas';
-                        }})
-
-                                          }
-
-
-
-                             })
-                        }
-                        });
-        </script>";*/
-        
-
-//        if (isset($_POST["codigoVenta"])) {
-//            if (preg_match('/^[0-9]+$/', $_POST["codigoVenta"])) {
-//
-//                var_dump($_POST["SubTotal"]);
-//                var_dump($_POST["Total"]);
-//                var_dump($_POST["IGV"]);
-//
-//
-//                $tabla = "Ventas";
-//                //    `idVenta`, `Codigo`, `idCliente`, `idVendedor`, `Impuesto`, `Neto`, `Descuento`, `Total`, `MetodoPago`, `Fecha`, `Estado` 
-//
-//                $datos = array("Codigo" => $_POST["CodigoVenta"],
-//                    "idCliente" => $_POST["IngresoCliente"],
-//                    "idVendedor" => $_SESSION["idPersonal"]);
-//                var_dump($datos);
-//
-////
-////                $respuesta = ProductosModelo::mdlCrearProducto($tabla, $datos);
-////
-////                if ($respuesta == "ok") {
-////
-////                    echo '<script>
-////
-////					Swal.fire({
-////
-////						type: "success",
-////						title: "¡El usuario ha sido guardado correctamente!",
-////						showConfirmButton: true,
-////						confirmButtonText: "Cerrar"
-////
-////						}).then(function(result){
-////
-////							if(result.value){
-////
-////								window.location = "Productos";
-////
-////							}
-////
-////							});
-////
-////
-////							</script>';
-////                }
-//            } else {
-//
-//                echo '<script>
-//
-//						Swal.fire({
-//
-//							type: "error",
-//							title: "¡La venta no puede ir vacío o llevar caracteres especiales!",
-//							showConfirmButton: true,
-//							confirmButtonText: "Cerrar"
-//
-//							}).then(function(result){
-//
-//								if(result.value){
-//
-//									window.location = "CrearVenta";
-//
-//								}
-//
-//								});
-//
-//
-//								</script>';
-//            }
-//        }
-//    
-//        
+    static public function ctrCrearVenta($data) {
+        $id = VentasModelo::mdlCrearVenta("ventas",$data);
+        $value = false;
+        if($id > 0){
+            foreach ($data['items'] as $key => $item) {
+                $value = VentasModelo::mdlCrearVentaDetalle('detalleventa',$item,$id);
+                if($data['tipoVenta'] == 'venta'){
+                    $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item->idProducto)[0];
+                    $nuevo_stock = $producto['Stock'] - $item->cantidad;
+                    ProductosModelo::actualizar_stock($nuevo_stock, $item->idProducto);
+                }
+            }
+        }
+        return $value;
     }
 
     static public function ctrEditarProducto() {

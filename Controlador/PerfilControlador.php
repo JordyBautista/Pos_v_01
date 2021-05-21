@@ -4,11 +4,9 @@ class PerfilControlador {
 
     static public function ctrMostrarPerfil($item, $valor, $orden) {
 
-        $tabla = "Perfil";
+        $tabla = "perfil";
 
-        $respuesta = PerfilModelo::mdlMostrarPerfil($tabla, $item, $valor, $orden);
-
-        return $respuesta;
+        return PerfilModelo::mdlMostrarPerfil($tabla, $item, $valor, $orden);
     }
  
     static public function ctrCrearPerfil() {

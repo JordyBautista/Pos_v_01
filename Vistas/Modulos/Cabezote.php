@@ -163,12 +163,12 @@
             </ul>
         </li>
 
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
             <a class="nav-link  " href="#">
                 <i class="fas fa-power-off" style="color: #000000FF;"></i>       
             </a>
 
-        </li>
+        </li> -->
 
     </ul>
 

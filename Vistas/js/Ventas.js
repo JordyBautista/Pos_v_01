@@ -10,7 +10,7 @@ function getNewCode(){
         url: "Ajax/VentasCodigo.Ajax.php",
         success: function (respuesta) {
             let dato = respuesta.substr(0,10);
-            $('#codigoVenta').html(dato);
+            $('#codigoVenta').html(respuesta);
 
         },
         error:function(e){
@@ -119,6 +119,7 @@ $(".TablaProductosVenta tbody").on("click", "button.btnAddProductos", function()
         success: function(respuesta) {
            // var idProductos = respuesta[0]["idProducto"];
             var Descripcion = respuesta[0]["NombreProducto"];
+            var Id = respuesta[0]["idProducto"];
             var Stock = respuesta[0]["Stock"];
             var PrecioUnitario = respuesta[0]["PrecioVenta"];
 
@@ -156,10 +157,9 @@ $(".TablaProductosVenta tbody").on("click", "button.btnAddProductos", function()
                 "<td class='nuevaDescripcionProducto' idProducto='" + idProducto + "'name='agregarProducto' value='" + Descripcion + "'>" + Descripcion + "</td>",
                 "<td><span id='precio" + index + "'>" + PrecioUnitario + "</span></td>",
                 "<td><input id='cant" + index + "' type='number'onchange='CalcularPrecioProducto(this," + PrecioUnitario + "," + index + ")' precioUnitario='" + PrecioUnitario + "' class='form-control form-control-sm nuevaCantidadProducto' name='nuevaCantidadProducto' min='1' value='1' stock='" + Stock + " ' nuevoStock='" + Number(Stock - 1) + "' required></td>",
-                "<td><p id='Total" + index + "' value='' class='Total'>" + PrecioUnitario + "</p></td></tr>"
+                "<td><p id='Total" + index + "' value='' class='Total'>" + PrecioUnitario + "</p><input value='" + Id + "' type='hidden' id='productoid_" + index + "'/></td></tr>"
             ]).draw(true);
             ArrayProducto.push(index);
-
             precioTotal();
         }
     })
@@ -181,10 +181,10 @@ function eliminarProd(ind,id){
 
     //tabla.rows(indexArray).delete();
     let row = tabla.find('tr').eq(indexArray + 1);
+    console.log(row)
     tabla.fnDeleteRow( row[0] );
     //console.log(ArrayProducto);
    
-
     precioTotal();
 
 
@@ -285,3 +285,63 @@ var MontoRecibido=$("#EfectivoRecibido").val();
 var Cambio= Number(MontoRecibido- MontoTotal).toFixed(2);
 $("#Cambio").val(Cambio);
 })
+
+function isEmpty(data){
+    if (data == '') {
+        return true;
+    }
+    return false;
+}
+
+function guarar_venta(){
+    let tblVenta = $('.TablaProductosAddVentas').DataTable();
+    let cantidadRow = tblVenta.rows().count();
+    let items = [];
+    for (var i = 0; i < cantidadRow; i++){
+        let obj = {
+            'idProducto': $('#productoid_'+(i+1)).val(),
+            'cantidad': $('#cant'+(i+1)).val(),
+            'total': $('#Total'+(i+1)).html(),
+        }
+        items.push(obj)
+    }
+    let igv = $('#IGV').val();
+    let metodoPago = $('#metodoPago').val();
+    let subtotal = $('#SubTotal').val();
+    let totalfinal =  $('#TotalFinal').val(); 
+    let montopagar =  $('#MontoPagar').val(); 
+    let dscto =  $('#dscto').val(); 
+    let codigoVenta =  $('#codigoVenta').html(); 
+    let idCliente =  $('#idCliente').val();
+    let tipoVenta =  $('#tipoVenta').val();
+    if (!isEmpty(tipoVenta) && !isEmpty(metodoPago) && !isEmpty(totalfinal) && !isEmpty(codigoVenta) && !isEmpty(idCliente) && !(cantidadRow == 0)) {        
+        $.ajax({
+            type: "post",
+            url: "Ajax/Ventas.Ajax.php",
+            data: {tipoVenta,metodoPago,dscto,codigoVenta,idCliente,montopagar,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_venta'},
+            success: function (response) {
+                if (response) {
+                    window.location.reload();
+                }else{
+                    Swal.fire({
+
+                        type: "error",
+                        title: "No se pudo realizar la compra",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+            
+                        })
+                }
+            }
+        });
+    }else{
+        Swal.fire({
+
+            type: "error",
+            title: "Es necesario tener items, ingresar el cliente, elegir el metodo de Pago",
+            showConfirmButton: true,
+            confirmButtonText: "Cerrar"
+
+            })
+    }
+}

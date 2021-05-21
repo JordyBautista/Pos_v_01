@@ -95,19 +95,27 @@
                                         <table class="table  table-sm col-4 ml-auto">
                                             <tr>
                                                 <th>Subtotal:</th>
-                                                <td>$250.333.30</td>
+                                                <td><span id="subTotal"></span>
+                                                    <input type="hidden" name="SubTotal" id="SubTotal">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>IGV (18%)</th>
-                                                <td>$10.34</td>
+                                                <td>
+                                                    <span id="igv"></span>
+                                                    <input type="hidden"  name='IGV' id='IGV'>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th>Descuento:</th>
-                                                <td>$5.80</td>
+                                                <td><input style="border: none;" disabled="disabled" type="number" min="0" max="100" id="dscto" name='dscto' value="0"></td>
                                             </tr>
                                             <tr>
                                                 <th>Total:</th>
-                                                <td>$26.599.924.35</td>
+                                                <td>
+                                                    <span id="totalFinal"></span>
+                                                    <input type="hidden" name='TotalFinal' id='TotalFinal'>
+                                                </td>
                                             </tr>
                                             <tr><th></th><td></td></tr>
                                         </table>
@@ -305,5 +313,3 @@
 </div>
 
 <!--====  End Modal Registro Proveedores  ====-->
-
-
