@@ -6,14 +6,45 @@ class ComprasModelo {
     /* =============================================
       CREAR Productos
       ============================================= */
-      public function __construct()
-      {
-      }
-      static public function mdlGetCode(){
+    public function __construct()
+    {
+    }
+    static public function mdlGetCode(){
 
-        $stmt = ConexionBD::Conecction()->prepare("SELECT codigoCompra FROM compras order by idCompra  desc limit 1");
+    $stmt = ConexionBD::Conecction()->prepare("SELECT codigoCompra FROM compras order by idCompra  desc limit 1");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    static function mdlMostrarCompras($tabla, $item, $valor) {
+        if ($item != null) {
+
+            $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla WHERE $item = :$item ORDER BY idCompra DESC");
+            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch();
+        } else {
+
+            $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla where estado = :estado ORDER BY idCompra DESC");
+            $stmt->bindParam(":estado", $valor, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+    }
+
+    static function mdlMostrarCompraDetalle($tabla, $item, $valor) {
+        $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla WHERE $item = :id ORDER BY idCompra DESC");
+        $stmt->bindParam(":id", $valor, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
+    }
+
+    static public function mdlActualizar_estado($estado, $id){
+        $stmt = ConexionBD::Conecction()->prepare("UPDATE compras SET  estado=:estado  WHERE idCompra=:id");
+
+        $stmt->bindParam(":estado", $estado, PDO::PARAM_STR);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        return $stmt->execute();
       }
 
     static public function mdlCrearCompra($tabla, $datos, $codigo) {

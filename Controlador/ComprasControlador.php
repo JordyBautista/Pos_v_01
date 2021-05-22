@@ -3,9 +3,21 @@
 class ComprasControlador {
 
     static public function ctrMostrarCompras($item, $valor) {
-        // $tabla = "Ventas";
-        // $respuesta = VentasModelo::mdlMostrarVentas($tabla, $item, $valor);
-        // return $respuesta;
+        $tabla = "compras";
+        return ComprasModelo::mdlMostrarCompras($tabla, $item, $valor);
+    }
+
+    static public function ctrActualizarEstado($estado, $id) {
+        if ($estado == '2') {
+            $detalle = ComprasModelo::mdlMostrarCompraDetalle('compradetalle','idCompra',$id);
+            foreach ($detalle as $key => $item) {
+                $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item['idProducto'])[0];
+                $nuevo_stock = $producto['Stock'] + $item['cantidad'];
+                ProductosModelo::actualizar_stock($nuevo_stock, $item['idProducto']);
+            }
+        }
+
+            return ComprasModelo::mdlActualizar_estado($estado, $id);
     }
 
     static public function ctrGetCode() :string {

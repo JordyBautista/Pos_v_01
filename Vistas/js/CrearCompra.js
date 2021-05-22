@@ -338,8 +338,7 @@ function guardarCompra(){
                     window.location.reload();
                 }else{
                     Swal.fire({
-
-                        type: "error",
+                        icon: 'error',
                         title: "No se pudo realizar la compra",
                         showConfirmButton: true,
                         confirmButtonText: "Cerrar"
@@ -351,7 +350,7 @@ function guardarCompra(){
     }else{
         Swal.fire({
 
-            type: "error",
+            icon: "error",
             title: "Es necesario ingresar el proveedor, elegir el metodo de Pago",
             showConfirmButton: true,
             confirmButtonText: "Cerrar"

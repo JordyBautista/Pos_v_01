@@ -55,7 +55,8 @@ session_start();
         <!-- ChartJS -->
         <script src="Vistas/Librerias/plugins/chart.js/Chart.min.js"></script>
         <!-- sweetalert2 -->
-        <script src="Vistas/Librerias/plugins/sweetalert2/sweetalert2.all.js"></script>
+        <!-- <script src="Vistas/Librerias/plugins/sweetalert2/sweetalert2.all.js"></script> -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- InputMask -->
         <script src="Vistas/Librerias/plugins/moment/moment.min.js"></script>
         <script src="Vistas/Librerias/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
@@ -159,11 +160,19 @@ session_start();
         <script src="Vistas/js/Perfil.js" ></script>
         <script src="Vistas/js/Usuarios.js"></script>
         <script src="Vistas/js/Clientes.js"></script>
-        <script src="Vistas/js/Compras.js"></script>
+        
         <script src="Vistas/js/CrearVentas.js"></script>
         <script src="Vistas/js/Empresa.js"></script>
-         <script src="Vistas/js/ProductosAlquiler.js"></script>
+         
         <?php  if (isset($_GET["Ruta"])) {?>
+          <?php   if ($_GET["Ruta"] == "Compras"){ ?>
+
+            <script src="Vistas/js/Compras.js"></script>
+          <?php } ?>
+          <?php   if ($_GET["Ruta"] == "ProductosAlquiler"){ ?>
+
+            <script src="Vistas/js/ProductosAlquiler.js"></script>
+          <?php } ?>
           <?php   if ($_GET["Ruta"] == "CrearVenta"){ ?>
 
           <script src="Vistas/js/Ventas.js"></script>

@@ -98,23 +98,6 @@
                                 <p>Proveedores</p>
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="OrdenDeCompra" class="nav-link">
-                                <i class="fas fa-shipping-fast nav-icon"></i>
-                                <p>Ordenes de Compras</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="AdministrarOrdenesDeCompra" class="nav-link">
-                                <i class="fas fa-shipping-fast nav-icon"></i>
-                                <p>Administar Ordenes de Compras</p>
-                            </a>
-                        </li>
-
-                        
-
                     </ul>
                 </li>
 
