@@ -46,7 +46,7 @@
                                     <div class="col-sm-4">
                                         <div class="description-block">
                                             <h5 class="description-header ">Codigo De La Compra</h5>
-                                            <span class="description-text">N.0000001</span>
+                                            <span id="codigoCompra" class="description-text">N.0000001</span>
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                                 <div class="row">
                                     <div class="col-12">
 
-                                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#ModalPagosCompras"><i class="far fa-credit-card"></i> Guardar
+                                        <button type="button" class="btn btn-success float-right" onclick="guardarCompra()"><i class="far fa-credit-card"></i> Guardar
                                         </button>
 
                                     </div>
@@ -304,8 +304,8 @@
                 </div>
 
                 <?php
-                $IngresoProveedor = new ProveedoresControlador();
-                $IngresoProveedor->ctrCrearProveedor();
+                // $IngresoProveedor = new ProveedoresControlador();
+                // $IngresoProveedor->ctrCrearProveedor();
                 ?>
             </form>
         </div>

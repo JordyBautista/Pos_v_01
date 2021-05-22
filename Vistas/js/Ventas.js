@@ -326,7 +326,7 @@ function guarar_venta(){
                     Swal.fire({
 
                         type: "error",
-                        title: "No se pudo realizar la compra",
+                        title: "No se pudo realizar la venta",
                         showConfirmButton: true,
                         confirmButtonText: "Cerrar"
             

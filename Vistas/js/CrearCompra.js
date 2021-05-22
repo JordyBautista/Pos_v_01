@@ -32,6 +32,28 @@ $(document).ready(function () {
     })
 })
 
+function init(){
+    getNewCode();
+}
+
+function getNewCode(){
+
+    $.ajax({
+        type: "Post",
+        url: "Ajax/CompraAjax.php",
+        data: {type: 'obtener_codigo'},
+        success: function (respuesta) {
+            let dato = respuesta.substr(0,10);
+            $('#codigoCompra').html(respuesta);
+
+        },
+        error:function(e){
+            //console.log(e);
+        }
+    });
+}
+
+init();
 function obtenerProductos(idProveedor) {
     $('#TablaCompras-ProductosGeneral').DataTable({
         ajax:
@@ -186,6 +208,7 @@ $("#TablaCompras-ProductosGeneral tbody").on("click", "button.btnAddProductosCom
             var Descripcion = respuesta[0]["NombreProducto"];
             var Stock = respuesta[0]["Stock"];
             var PrecioUnitario = respuesta[0]["PrecioCompra"];
+            var Id = respuesta[0]["idProducto"];
 
             let num = ArrayProducto.length;
             var index = 1;
@@ -198,7 +221,7 @@ $("#TablaCompras-ProductosGeneral tbody").on("click", "button.btnAddProductosCom
                 "<td><span id='DescripcionProducto'>"+Descripcion+"</span></td>",
                 "<td><span id='precio" + index + "'>"+PrecioUnitario+"</span></td>",
                 "<td><input id='cant" + index + "' type='number'onchange='CalcularPrecioProducto(this," + PrecioUnitario + "," + index + ")' precioUnitario='" + PrecioUnitario + "' class='form-control form-control-sm nuevaCantidadProducto' name='nuevaCantidadProducto' min='1' value='1' stock='" + Stock + " ' nuevoStock='" + Number(Stock - 1) + "' required></td>",
-                "<td><p id='Total" + index + "' value='' class='Total'>" + PrecioUnitario + "</p></td></tr>"]).draw(true);
+                "<td><p id='Total" + index + "' value='' class='Total'>" + PrecioUnitario + "</p><input value='" + Id + "' type='hidden' id='productoid_" + index + "'/></td></tr>"]).draw(true);
 
             ArrayProducto.push(index);
 
@@ -280,8 +303,62 @@ function  DsctoHabilitar(valor){
         $("#dscto").attr('disabled','disabled');
     }
 }
+function isEmpty(data){
+    if (data == '') {
+        return true;
+    }
+    return false;
+}
+function guardarCompra(){
+    let tblCompra = $('.TablaCompras-Productos').DataTable();
+    let cantidadRow = tblCompra.rows().count();
+    let items = [];
+    for (var i = 0; i < cantidadRow; i++){
+        let obj = {
+            'idProducto': $('#productoid_'+(i+1)).val(),
+            'cantidad': $('#cant'+(i+1)).val(),
+            'total': $('#Total'+(i+1)).html(),
+        }
+        items.push(obj)
+    }
+    let igv = $('#IGV').val();
+    //let metodoPago = $('#metodoPago').val();
+    let subtotal = $('#SubTotal').val();
+    let totalfinal =  $('#TotalFinal').val();
+    let dscto =  $('#dscto').val(); 
+    //let codigoVenta =  $('#codigoVenta').html(); 
+    let idProveedor =  $('#idProveedor').val();
+    if (!isEmpty(totalfinal) && !isEmpty(idProveedor) && !(cantidadRow == 0)) {        
+        $.ajax({
+            type: "post",
+            url: "Ajax/CompraAjax.php",
+            data: {dscto,idProveedor,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_compra'},
+            success: function (response) {
+                if (response) {
+                    window.location.reload();
+                }else{
+                    Swal.fire({
 
+                        type: "error",
+                        title: "No se pudo realizar la compra",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+            
+                        })
+                }
+            }
+        });
+    }else{
+        Swal.fire({
 
+            type: "error",
+            title: "Es necesario ingresar el proveedor, elegir el metodo de Pago",
+            showConfirmButton: true,
+            confirmButtonText: "Cerrar"
+
+            })
+    }
+}
 
 
 
