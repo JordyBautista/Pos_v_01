@@ -133,3 +133,22 @@ function confirm_dialog(id,estado){
         }
       })
 }
+
+function verDetalle(id){
+    $.ajax({
+        type: "get",
+        url: "Ajax/CompraAjax.php",
+        data: {type:'ver_detalle', id},
+        success: function (response) {
+            response = JSON.parse(response)
+            console.log(response)
+
+            $('#prov_codigo').html(response['codigo']);
+            $('#prov_proveedor').html(response['proveedor']);
+            $('#prov_fecha').html(response['fechaRegistro']);
+            $('#prov_estado').html(response['estado']);
+            $('#detalle_compra_ver').html(response['detalle']);
+            $('#modal_detalle_compra').modal('show');
+        }
+    });
+}

@@ -20,6 +20,37 @@ class ComprasControlador {
             return ComprasModelo::mdlActualizar_estado($estado, $id);
     }
 
+    static public function ctrDetalleVenta($id) : array{
+        $compra = ComprasModelo::mdlMostrarCompras('compras','idCompra',$id);
+        if ($compra) {
+            $estado ='';
+            if($compra['estado'] == '1'){
+                $estado = 'Vigente';
+            }else if($compra['estado'] == '0'){
+                $estado = 'Cancelado';
+            }else if($compra['estado'] == '2'){
+                $estado = 'Realizado';
+            }
+            $result = [
+                'codigo' => $compra['codigoCompra'],
+                'proveedor' => $compra['codProveedor'],
+                'fechaRegistro' => $compra['fechaRegistro'],
+                'estado' => $estado ,
+            ];
+            $html = "<thead><tr><th>Producto</th><th>Cantidad</th><th>Importe</th></tr></thead><tbody>";
+            $detalle = ComprasModelo::mdlMostrarCompraDetalle('compradetalle','idCompra',$id);
+            foreach ($detalle as $key => $item) {
+                $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item['idProducto'])[0];
+                $html.= "<tr><th>".$producto['NombreProducto']."</th><th>".$item['cantidad']."</th><th>".$item['importe']."</th></tr>";
+            }
+            $html.= "</tbody><tfoot><tr><td></td><td><p><b>SubTotal</b></p><p><b>IGV</b></p><p><b>Dscto</b></p><p><b>Total</b></p></td>";
+            $html.= "<td><p>".$compra['subTotal']."</p><p>".$compra['igv']."</p><p>".$compra['dscto']."</p><p>".$compra['total']."</p></td></tr></tfoot>";
+            $result['detalle'] = $html;
+
+            return $result;
+        }
+    }
+
     static public function ctrGetCode() :string {
         $respuesta = ComprasModelo::mdlGetCode();
         if($respuesta){

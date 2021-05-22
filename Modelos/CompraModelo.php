@@ -19,7 +19,7 @@ class ComprasModelo {
     static function mdlMostrarCompras($tabla, $item, $valor) {
         if ($item != null) {
 
-            $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla WHERE $item = :$item ORDER BY idCompra DESC");
+            $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
             $stmt->bindParam(":" . $item, $valor, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch();

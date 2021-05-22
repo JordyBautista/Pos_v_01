@@ -50,6 +50,7 @@
                             <th>Total</th>
                             <th>Fecha</th>
                             <th>Estado</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
@@ -62,5 +63,44 @@
 
 </div>
 
-
+<div class="modal fade" id="modal_detalle_compra" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
+        
+        <div class="modal-content">
+            <div class="modal-header" style="background:#3c8dbc; color:white">
+                <h5 class="modal-title">Detalle de la Compra</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">            
+                <div class="card">
+                    <div class="card-header">
+                        <table class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Proveedor</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Estado</th>
+                                </tr>
+                                <tr>
+                                    <td id="prov_codigo"></td>
+                                    <td id="prov_proveedor"></td>
+                                    <td id="prov_fecha"></td>
+                                    <td id="prov_estado"></td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped table-sm" id="detalle_compra_ver">
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

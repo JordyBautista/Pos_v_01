@@ -24,14 +24,20 @@ class CompraAjax {
         foreach ($compras as $key => $item) {
             $sub_array = array();
             $estado = '';
+            $color = '';
+            $funcion = '';
             if($item['estado'] == '1'){
                 $estado = 'Vigente';
+                $color = 'secondary';
+                $funcion = "onclick='cambiarEstado(" . $item['idCompra'] . "," . $item['estado']. ")'";
             }else if($item['estado'] == '0'){
                 $estado = 'Cancelado';
+                $color = 'danger';
             }else if($item['estado'] == '2'){
                 $estado = 'Realizado';
+                $color = 'success';
             }
-            $estado_boton = "<button class='btn btn-sm bg-secondary'  onclick='cambiarEstado(" . $item['idCompra'] . "," . $item['estado']. ")' >".$estado."</button>";
+            $estado_boton = "<button class='btn btn-sm bg-".$color."' ".$funcion.">".$estado."</button>";
 
             $sub_array[] = $key +1;
             $sub_array[] = $item['codigoCompra'];
@@ -42,6 +48,7 @@ class CompraAjax {
             $sub_array[] = $item['total'];
             $sub_array[] = $item['fechaRegistro'];
             $sub_array[] = $estado_boton;
+            $sub_array[] ="<button class='btn btn-primary' onclick='verDetalle(" . $item['idCompra'] . ")'><i class='fas fa-eye'></i></button>";
 
             $data[] = $sub_array;
         }
@@ -51,6 +58,11 @@ class CompraAjax {
             "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
             "aaData"=>$data);
         echo json_encode($results);
+    }
+
+    public function ver_detalle(){
+        $result = ComprasControlador::ctrDetalleVenta($this->idCompra);
+        echo json_encode($result);
     }
 
     public function obtener_codigo(){
@@ -73,6 +85,12 @@ if (isset($_GET["type"])){
         $Compra = new CompraAjax();
         $Compra->estado = $_GET["estado"];
         $Compra->mostrarTablaCompra();
+    }
+
+    if($_GET["type"] == 'ver_detalle'){
+        $Compra = new CompraAjax();
+        $Compra->idCompra = $_GET["id"];
+        $Compra->ver_detalle();
     }
 }
 if (isset($_POST["type"])) {
