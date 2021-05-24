@@ -16,10 +16,9 @@ class VentasModelo {
         return $stmt->fetch(PDO::FETCH_ASSOC);
       }
 
-    static public function mdlCrearVenta($tabla, $datos) {
+    static public function mdlCrearVenta($tabla, $datos, $estado) {
         $sql = ConexionBD::Conecction();
         $stmt = $sql->prepare("INSERT INTO ".$tabla."(Codigo, idCliente, idVendedor, Impuesto, Neto,Descuento,tipoVenta, Total, MetodoPago,Estado) VALUES (:Codigo,:idCliente,:idVendedor,:Impuesto,:Neto,:Descuento,:tipoVenta,:Total,:MetodoPago,:Estado)");
-        $detault = '1';
         $idUsuario = $datos["idUsuario"];
         $stmt->bindParam(":Codigo", $datos["codigoVenta"], PDO::PARAM_STR);
         $stmt->bindParam(":idCliente", $datos["idCliente"], PDO::PARAM_STR);
@@ -30,7 +29,7 @@ class VentasModelo {
         $stmt->bindParam(":tipoVenta", $datos["tipoVenta"], PDO::PARAM_STR);
         $stmt->bindParam(":Total", $datos["totalfinal"], PDO::PARAM_STR);
         $stmt->bindParam(":MetodoPago", $datos["metodoPago"], PDO::PARAM_STR);
-        $stmt->bindParam(":Estado", $detault , PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":Estado", $estado , PDO::PARAM_STR_CHAR);
         
         if ($stmt->execute()) {
             $id = $sql->lastInsertId();
@@ -50,7 +49,14 @@ class VentasModelo {
         $stmt->bindParam(":importe", $datos->total, PDO::PARAM_STR);
         return $stmt->execute();
     }
-    
+    static public function mdlActualizar_estado($estado, $id){
+        $stmt = ConexionBD::Conecction()->prepare("UPDATE ventas SET  Estado=:estado  WHERE idVenta=:id");
+
+        $stmt->bindParam(":estado", $estado, PDO::PARAM_STR);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
     
     /* =============================================
       STOCK PRODUCTOS
@@ -110,7 +116,7 @@ class VentasModelo {
     }
 
     static function mdlMostrarVentas($tabla, $item, $valor) {
-  if ($item != null) {
+        if ($item != null) {
 
             $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
             $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
@@ -118,13 +124,18 @@ class VentasModelo {
             return $stmt->fetch();
         } else {
 
-            $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla");
+            $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla where Estado = :estado");
+            $stmt->bindParam(":estado", $valor, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll();
         }
+    }
 
-        $stmt->close();
-        $stmt = null;
+    static function mdlMostrarVentaDetalle($tabla, $item, $valor) {
+        $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM $tabla WHERE $item = :id ORDER BY idVentaDV DESC");
+        $stmt->bindParam(":id", $valor, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     /* =============================================

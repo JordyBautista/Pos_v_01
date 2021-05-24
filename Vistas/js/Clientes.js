@@ -80,7 +80,6 @@ $(".TablaClientes").on("click", ".btnEditarCliente", function () {
 
        })
 
-
 /*=============================================
  ELIMINAR CLIENTE
  =============================================*/

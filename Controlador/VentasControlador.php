@@ -4,8 +4,53 @@ class VentasControlador {
 
     static public function ctrMostrarVentas($item, $valor) {
         $tabla = "Ventas";
-        $respuesta = VentasModelo::mdlMostrarVentas($tabla, $item, $valor);
-        return $respuesta;
+        return VentasModelo::mdlMostrarVentas($tabla, $item, $valor);
+    }
+    static public function ctrActualizarEstado($estado, $id) {
+        if ($estado == '2') {
+            $detalle = VentasModelo::mdlMostrarVentaDetalle('detalleVenta','idVentaDV',$id);
+            foreach ($detalle as $key => $item) {
+                $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item['idProductoDV'])[0];
+                $nuevo_stock = $producto['Stock'] - $item['cantidad'];
+                ProductosModelo::actualizar_stock($nuevo_stock, $item['idProductoDV']);
+            }
+        }
+
+        return VentasModelo::mdlActualizar_estado($estado, $id);
+    }
+    
+    static public function ctrDetalleVenta($id) : array{
+        $venta = VentasModelo::mdlMostrarVentas('ventas','idVenta',$id);
+        if ($venta) {
+            $estado ='';
+            if($venta['Estado'] == '1'){
+                $estado = 'Cotizado';
+            }else if($venta['Estado'] == '0'){
+                $estado = 'Cancelado';
+            }else if($venta['Estado'] == '2'){
+                $estado = 'Realizado';
+            }
+            $result = [
+                'codigo' => $venta['Codigo'],
+                'cliente' => $venta['idCliente'],
+                'vendedor' => $venta['idVendedor'],
+                'fecha' => $venta['Fecha'],
+                'estado' => $estado,
+                'metodo' => $venta['MetodoPago'],
+                'tipo' => $venta['tipoVenta'],
+            ];
+            $html = "<thead><tr><th>Producto</th><th>Cantidad</th><th>Importe</th></tr></thead><tbody>";
+            $detalle = VentasModelo::mdlMostrarVentaDetalle('detalleventa','idVentaDV',$id);
+            foreach ($detalle as $key => $item) {
+                $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item['idProductoDV'])[0];
+                $html.= "<tr><th>".$producto['NombreProducto']."</th><th>".$item['cantidad']."</th><th>".$item['importe']."</th></tr>";
+            }
+            $html.= "</tbody><tfoot><tr><td></td><td><p><b>SubTotal</b></p><p><b>IGV</b></p><p><b>Dscto</b></p><p><b>Total</b></p></td>";
+            $html.= "<td><p>".$venta['Neto']."</p><p>".$venta['Impuesto']."</p><p>".$venta['Descuento']."</p><p>".$venta['Total']."</p></td></tr></tfoot>";
+            $result['detalle'] = $html;
+
+            return $result;
+        }
     }
 
     static public function ctrGetCode() {
@@ -13,10 +58,12 @@ class VentasControlador {
     }
 
     static public function ctrCrearVenta($data) {
-        $id = VentasModelo::mdlCrearVenta("ventas",$data);
+        $estado = $data['tipoVenta'] == 'venta' ? '2' : '1';
+        $id = VentasModelo::mdlCrearVenta("ventas",$data, $estado);
         $value = false;
         if($id > 0){
             foreach ($data['items'] as $key => $item) {
+                
                 $value = VentasModelo::mdlCrearVentaDetalle('detalleventa',$item,$id);
                 if($data['tipoVenta'] == 'venta'){
                     $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item->idProducto)[0];

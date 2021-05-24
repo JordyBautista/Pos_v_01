@@ -20,7 +20,7 @@ class ComprasControlador {
             return ComprasModelo::mdlActualizar_estado($estado, $id);
     }
 
-    static public function ctrDetalleVenta($id) : array{
+    static public function ctrDetalleCompra($id) : array{
         $compra = ComprasModelo::mdlMostrarCompras('compras','idCompra',$id);
         if ($compra) {
             $estado ='';

@@ -61,7 +61,7 @@ class CompraAjax {
     }
 
     public function ver_detalle(){
-        $result = ComprasControlador::ctrDetalleVenta($this->idCompra);
+        $result = ComprasControlador::ctrDetalleCompra($this->idCompra);
         echo json_encode($result);
     }
 
@@ -92,8 +92,7 @@ if (isset($_GET["type"])){
         $Compra->idCompra = $_GET["id"];
         $Compra->ver_detalle();
     }
-}
-if (isset($_POST["type"])) {
+}else if (isset($_POST["type"])) {
     if($_POST["type"] == 'obtener_codigo'){
         $Compra = new CompraAjax();
         $Compra->obtener_codigo();
