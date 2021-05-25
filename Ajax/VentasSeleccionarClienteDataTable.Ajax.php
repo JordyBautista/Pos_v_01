@@ -27,8 +27,7 @@ class VentasSeleccionarClienteDataTableAjax {
               TRAEMOS LAS ACCIONES
               ============================================= */
 
-
-             $botones ="<div class='btn-group pl-3'><button class='btn btn-xs bg-info btnAddCliente'  idCliente='" . $Clientes[$i]['idCliente'] . "'><i class='fas fa-upload'></i></button></div>";
+             $botones ="<div class='btn-group pl-3'><button id='cliente_" . $Clientes[$i]['idCliente'] .  "' onclick='escogercliente(" . $Clientes[$i]['idCliente'] .  ")' class='btn btn-xs bg-info btnAddCliente'  nombre='" . $Clientes[$i]['Nombres'] . "'><i class='fas fa-upload'></i></button></div>";
 
             $datosJson .='[
             "' . ($i + 1) . '",

@@ -19,7 +19,7 @@ class AjaxGetCode {
             $nuevoCodigo = "0000000001";
         }
         
-        echo $nuevoCodigo;
+        echo 'Hola';
     }
 
 }
@@ -27,5 +27,10 @@ class AjaxGetCode {
 /* =============================================
   EDITAR Venta
   ============================================= */
-    $Venta = new AjaxGetCode();
-    $Venta->ajaxGetCode();
+  if (isset($_POST['type'])) {
+      if ($_POST['type'] == 'obtener_codigo') {
+        $Venta = new AjaxGetCode();
+        $Venta->ajaxGetCode(); 
+      }
+  }
+

@@ -80,6 +80,21 @@ class AjaxVentas {
   public function estado(){
     echo VentasControlador::ctrActualizarEstado($this->estado, $this->idVenta);
   }
+
+  public function obtener_codigo() {
+    $respuesta = VentasControlador::ctrGetCode();
+    if($respuesta){
+      
+        $codigo = $respuesta["Codigo"];
+             
+      $cod = $codigo +1;
+      $nuevoCodigo = str_pad($cod, 10,"0",STR_PAD_LEFT);
+    }else{
+        $nuevoCodigo = "0000000001";
+    }
+    
+    echo $nuevoCodigo;
+  }
 }
 
 /* =============================================
@@ -102,7 +117,10 @@ if (isset($_POST["idVenta"])) {
       $Venta->ver_detalle();
   }
 }else if(isset($_POST["type"])) {
-  if($_POST["type"] == 'estado'){
+  if($_POST["type"] == 'obtener_codigo'){
+    $Venta = new AjaxVentas();
+    $Venta->obtener_codigo(); 
+  }else if($_POST["type"] == 'estado'){
     $Venta = new AjaxVentas();
     $Venta->estado = $_POST["estado"];
     $Venta->idVenta = $_POST["id"];

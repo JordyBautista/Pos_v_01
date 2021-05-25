@@ -204,7 +204,7 @@ $("#TablaCompras-ProductosGeneral tbody").on("click", "button.btnAddProductosCom
         dataType: "json",
         success: function (respuesta) {
             
-            console.log("productos",respuesta);
+            //console.log("productos",respuesta);
             var Descripcion = respuesta[0]["NombreProducto"];
             var Stock = respuesta[0]["Stock"];
             var PrecioUnitario = respuesta[0]["PrecioCompra"];
@@ -334,6 +334,7 @@ function guardarCompra(){
             url: "Ajax/CompraAjax.php",
             data: {dscto,idProveedor,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_compra'},
             success: function (response) {
+                console.log(response)
                 if (response) {
                     window.location.reload();
                 }else{
@@ -345,6 +346,9 @@ function guardarCompra(){
             
                         })
                 }
+            },
+            error: function(response){
+                console.log(response)
             }
         });
     }else{

@@ -71,6 +71,6 @@ class ComprasControlador {
                 $value = ComprasModelo::mdlCrearCompraDetalle('compradetalle',$item,$id);
             }
         }
-        return $value;
+        return $id;
     }
 }

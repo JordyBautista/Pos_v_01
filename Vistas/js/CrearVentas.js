@@ -5,15 +5,59 @@ function init(){
     getNewCode();
 }
 
+$('.TablaSeleccionarCliente').DataTable({
+    "ajax": "Ajax/VentasSeleccionarClienteDataTable.Ajax.php",
+    "responsive": true,
+    "autoWidth": false,
+    "deferRender": true,
+    "retrieve": true,
+    "processing": true,
+    "language": {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+
+    }
+
+})
+
+function escogercliente(id){
+
+    let nombre = $('#cliente_'+id).attr("nombre");
+    $('#idCliente').val(id);
+    $('#DatosDelCliente').val(nombre);
+    $("#ModalSeleccionarCliente").modal('hide');
+}
+
 function getNewCode(){
 
     $.ajax({
         type: "Post",
-        url: "Ajax/VentasCodigo.Ajax.php",
+        url: "Ajax/Ventas.Ajax.php",
+        data: {type: 'obtener_codigo'},
         success: function (respuesta) {
+            console.log(respuesta)
             let dato = respuesta.substr(0,10);
             $('#codigoVenta').html(respuesta);
-
         },
         error:function(e){
             //console.log(e);
