@@ -192,18 +192,14 @@ $("#TablaCompras-ProductosGeneral tbody").on("click", "button.btnAddProductosCom
     var idProducto = $(this).attr("idProductoCompra");
     $(this).removeClass("btn-info btnAddProductosCompra");
     $(this).addClass("btn-default disabled");
-    var datos = new FormData();
-    datos.append("idProducto", idProducto);
+    // var datos = new FormData();
+    // datos.append("idProducto", idProducto);
     $.ajax({
         url: "Ajax/Productos.Ajax.php",
         method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
+        data: {idProducto, type: 'obtener_producto'},
         success: function (respuesta) {
-            
+            respuesta = JSON.parse(respuesta)
             //console.log("productos",respuesta);
             var Descripcion = respuesta[0]["NombreProducto"];
             var Stock = respuesta[0]["Stock"];

@@ -156,20 +156,19 @@ var ArrayProducto = [];
 
 $(".TablaProductosVenta tbody").on("click", "button.btnAddProductos", function() {
    // $('.btnGuardarVenta').removeClass('collapse').addClass('collapse.show');
-    var idProducto = $(this).attr("idProducto");
+   var idProducto = $(this).attr("idProducto");
+   console.log('hola')
     $(this).removeClass("btn-info btnAddProductos");
     $(this).addClass("btn-default disabled");
-    var datos = new FormData();
-    datos.append("idProducto", idProducto);
+    // var datos = new FormData();
+    // datos.append("idProducto", idProducto);
     $.ajax({
         url: "Ajax/Productos.Ajax.php",
         method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
+        data: {idProducto, type:'obtener_producto'},
         success: function(respuesta) {
+            respuesta = JSON.parse(respuesta)
+            console.log(respuesta)
            // var idProductos = respuesta[0]["idProducto"];
             var Descripcion = respuesta[0]["NombreProducto"];
             var Id = respuesta[0]["idProducto"];
