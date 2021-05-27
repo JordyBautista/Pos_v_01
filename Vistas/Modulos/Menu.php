@@ -82,19 +82,16 @@
 
                         <li class="nav-item">
                             <a href="CrearCompra" class="nav-link">
-                                <i class="fas fa-truck nav-icon"></i>
                                 <p>Realizar Compras</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="Compras" class="nav-link">
-                                <i class="fas fa-truck nav-icon"></i>
                                 <p>Administrar Compras</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="Proveedores" class="nav-link">
-                                <i class="fa fa-user-friends nav-icon"></i>
                                 <p>Proveedores</p>
                             </a>
                         </li>
@@ -114,31 +111,26 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="Productos" class="nav-link">
-                                <i class="fab fa-product-hunt nav-icon"></i>
                                 <p>Productos</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="Categorias" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Categorias</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="Presentacion" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Presentacion</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="Marcas" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Marcas</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="StockProductos" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Stock Productos</p>
                             </a>
                         </li>
@@ -163,13 +155,11 @@
                        
                         <li class="nav-item">
                             <a href="ProductosAlquiler" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Detalle de Maquinarias</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Stock de Maquinarias</p>
                             </a>
                         </li>
@@ -177,21 +167,18 @@
 
                          <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="fa fa-credit-card nav-icon"></i>
                                 <p>Alquiler de maquinarias </p>
                             </a>
                         </li>
 
                          <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="fa fa-credit-card nav-icon"></i>
                                 <p>Orden de salida de los equipos </p>
                             </a>
                         </li>
 
                          <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="fa fa-credit-card nav-icon"></i>
                                 <p>Recepcion de los equipos</p>
                             </a>
                         </li>
@@ -210,19 +197,16 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="Ventas" class="nav-link">
-                                <i class="fa fa-credit-card nav-icon"></i>
                                 <p>administrar ventas</p>
                             </a>
                         </li>
                         <li class="nav-item CrearVenta" value="CrearVenta">
                             <a href="CrearVenta" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Crear Ventas</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="Clientes" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Clientes</p>
                             </a>
                         </li>

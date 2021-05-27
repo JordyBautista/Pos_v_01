@@ -26,6 +26,7 @@ session_start();
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         <!-- daterange picker -->
         <link rel="stylesheet" href="Vistas/Librerias/plugins/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" href="Vistas/Librerias/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css">
         <!-- DataTables -->
         <link rel="stylesheet" href="Vistas/Librerias/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
         <link rel="stylesheet" href="Vistas/Librerias/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -62,6 +63,8 @@ session_start();
         <script src="Vistas/Librerias/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
         <!-- date-range-picker -->
         <script src="Vistas/Librerias/plugins/daterangepicker/daterangepicker.js"></script>
+        <script src="Vistas/Librerias/plugins/datetimepicker/js/moment-with-locales.min.js"></script>
+        <script src="Vistas/Librerias/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
         <!-- overlayScrollbars -->
         <script src="Vistas/Librerias/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     </head>

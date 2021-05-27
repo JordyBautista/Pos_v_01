@@ -1,11 +1,3 @@
-$.ajax({
-   url: "Ajax/ProductosAlquilerDataTable.Ajax.php",
-    success:function(respuesta){
-     console.log("respuesta", respuesta);
- 
-    }
-
- })
 
 
 /*=============================================
@@ -45,3 +37,40 @@ $('.TablaProductosAlquiler').DataTable({
     }
 
 })
+
+// $("#prod_alg_reg").on("submit",function(e)
+// {
+//     e.preventDefault()
+//     console.log('hola')
+// });
+function editarProductoAlguiler(id){
+    $.ajax({
+        url: "Ajax/Productos.Ajax.php",
+        method: "get",
+        data: {id, type:'obtener_prod_alq'},
+        success: function (response) {
+            response = JSON.parse(response)
+            console.log(response)
+            $('#EditarId').val(response[0]['idProductoAlquiler'])
+            $('#EditarDescripcion').val(response[0]['Descripcion'])
+            $('#EditarPlaca').val(response[0]['Placa'])
+            $('#EditarUbicacion').val(response[0]['Ubicacion'])
+            $('#EditarMarca').val(response[0]['idMarca']).trigger('change')
+            $('#EditarPrecioAlquiler').val(response[0]['PrecioAlquiler'])
+            $('#EditarEstado').val(response[0]['Estado']).trigger('change')
+            $('#EditarObservacion').val(response[0]['Observaciones'])
+            $('#EditarSerie').val(response[0]['Serie']).trigger('change')
+            $("#fotoActual").val(response[0]["Fotografia"])
+            if (response[0]["Fotografia"] != "") {
+                
+                $(".previsualizarEditar").attr("src", response[0]["Fotografia"]);
+                
+            } else {
+                
+                $(".previsualizarEditar").attr("src", "Vistas/img/Producto/Default/DefaultProducto.png");
+                
+            }
+            $("#ModalModificarProductosAlquiler").modal('show')
+        }
+    });
+}

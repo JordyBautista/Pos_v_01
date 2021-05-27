@@ -1,3 +1,4 @@
+
 /*=============================================
  SUBIENDO LA FOTO DEL USUARIO
  =============================================*/
@@ -56,115 +57,38 @@ $(".nuevaFoto").change(function () {
 
 
 $(".TablaProductos").on("click", ".btnEditarProducto", function () {
-
+ 
     var idProducto = $(this).attr("idProducto");
 
-    var datos = new FormData();
-    datos.append("idProducto", idProducto);
-
+    console.log('asdsadasd')
     $.ajax({
         url: "Ajax/Productos.Ajax.php",
         method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
+        data: {idProducto, type:'obtener_producto'},
         success: function (respuesta) {
-
-            var datosProveedor = new FormData();
-            datosProveedor.append("idProveedor", respuesta["CodigoProveedor"]);
-
-            $.ajax({
-                url: "Ajax/Proveedores.Ajax.php",
-                method: "POST",
-                data: datosProveedor,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (respuesta) {
-
-                    $("#EditarProveedor").val(respuesta["Codigo"]);
-                    $("#EditarProveedor").html(respuesta["RazonSocial"]);
-
-                }
-
-            });
-
-
-            var datosCategoria = new FormData();
-            datosCategoria.append("idCategoria", respuesta["CodigoCategoria"]);
-
-            $.ajax({
-                url: "Ajax/Categorias.Ajax.php",
-                method: "POST",
-                data: datosCategoria,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (respuesta) {
-
-                    $("#EditarCategoria").val(respuesta["Codigo"]);
-                    $("#EditarCategoria").html(respuesta["Categoria"]);
-
-                }
-
-            });
-            var datosMarca = new FormData();
-            datosMarca.append("idMarca", respuesta["CodigoMarca"]);
-
-            $.ajax({
-                url: "Ajax/Marcas.Ajax.php",
-                method: "POST",
-                data: datosMarca,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (respuesta) {
-
-                    $("#EditarMarca").val(respuesta["Codigo"]);
-                    $("#EditarMarca").html(respuesta["Marca"]);
-
-                }
-
-            });
-            var datosPresentacion = new FormData();
-            datosPresentacion.append("idPresentacion", respuesta["CodigoPresentacion"]);
-
-            $.ajax({
-                url: "Ajax/Presentacion.Ajax.php",
-                method: "POST",
-                data: datosPresentacion,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (respuesta) {
-
-                    $("#EditarPresentacion").val(respuesta["Codigo"]);
-                    $("#EditarPresentacion").html(respuesta["Presentacion"]);
-
-                }
-
-            });
-
-
-            $("#EditarCodigo").val(respuesta["idProducto"]);
-            $("#EditarProducto").val(respuesta["NombreProducto"]);
-            $("#EditarDescripcion").val(respuesta["Descripcion"]);
-            $("#fotoActual").val(respuesta["Fotografia"]);
-            if (respuesta["Fotografia"] != "") {
-
-                $(".previsualizarEditar").attr("src", respuesta["Fotografia"]);
-
+            respuesta = JSON.parse(respuesta)
+            console.log(respuesta)
+            
+            $("#EditarProveedor").val(respuesta[0]["CodigoProveedor"]).trigger('change');
+            $("#EditarCategoria").val(respuesta[0]["CodigoCategoria"]).trigger('change');
+            $("#EditarMarca").val(respuesta[0]["CodigoMarca"]).trigger('change');
+            $("#EditarPresentacion").val(respuesta[0]["CodigoPresentacion"]).trigger('change');
+            
+            
+            $("#EditarCodigo").val(respuesta[0]["idProducto"]);
+            $("#EditarProducto").val(respuesta[0]["NombreProducto"]);
+            $("#EditarDescripcion").val(respuesta[0]["Descripcion"]);
+            $("#fotoActual").val(respuesta[0]["Fotografia"]);
+            if (respuesta[0]["Fotografia"] != "") {
+                
+                $(".previsualizarEditar").attr("src", respuesta[0]["Fotografia"]);
+                
             } else {
-
+                
                 $(".previsualizarEditar").attr("src", "Vistas/img/Producto/Default/DefaultProducto.png");
-
+                
             }
+            $("#ModalEditarProducto").modal('show')
 
 
 
@@ -206,7 +130,7 @@ $(".TablaProductos").on("click", ".btnEliminarProducto", function () {
 /*=============================================
  CARGAR TABLA  PRODUCTOS CON AJAX
  =============================================*/
-$('.TablaProductos').DataTable({
+ var tablaProductos= $('.TablaProductos').DataTable({
     "ajax": "Ajax/ProductosDataTable.Ajax.php",
     "responsive": true,
     "autoWidth": false,
@@ -313,11 +237,6 @@ $(".TablaStockProductos").on("click", ".btnEditarStockProducto", function () {
             $("#StockMaximo").val(respuesta["StockMaximo"]);
             $("#StockPrecioCompra").val(respuesta["PrecioCompra"]);
             $("#StockPrecioVenta").val(respuesta["PrecioVenta"]);
-
-
-
-
-
         }
 
     })

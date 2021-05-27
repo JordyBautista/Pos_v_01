@@ -1,5 +1,12 @@
 
-
+$('#tipoVenta').change(function (e) { 
+    e.preventDefault()
+    if(this.value == 'cotizacion'){
+        $('#EfectivoRecibido').prop('disabled', true);
+    }else{
+        $('#EfectivoRecibido').prop('disabled', false);
+    }
+});
 
 function init(){
     getNewCode();
@@ -360,11 +367,12 @@ function guarar_venta(){
     let codigoVenta =  $('#codigoVenta').html(); 
     let idCliente =  $('#idCliente').val();
     let tipoVenta =  $('#tipoVenta').val();
+    let efectivoRecibido =  $('#EfectivoRecibido').val();
     if (!isEmpty(tipoVenta) && !isEmpty(metodoPago) && !isEmpty(totalfinal) && !isEmpty(codigoVenta) && !isEmpty(idCliente) && !(cantidadRow == 0)) {        
         $.ajax({
             type: "post",
             url: "Ajax/Ventas.Ajax.php",
-            data: {tipoVenta,metodoPago,dscto,codigoVenta,idCliente,montopagar,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_venta'},
+            data: {efectivoRecibido,tipoVenta,metodoPago,dscto,codigoVenta,idCliente,montopagar,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_venta'},
             success: function (response) {
                 if (response) {
                     window.location.reload();

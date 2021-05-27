@@ -43,7 +43,7 @@ class AjaxVentas {
           if($item['Estado'] == '1'){
               $estado = 'Cotizado';
               $color = 'secondary';
-              $funcion = "onclick='cambiarEstado(" . $item['idVenta'] . "," . $item['Estado']. ")'";
+              $funcion = "onclick='cambiarEstado(" . $item['idVenta'] . "," . $item['Estado']. "," . $item['Total']. ")'";
           }else if($item['Estado'] == '0'){
               $estado = 'Cancelado';
               $color = 'danger';
@@ -78,7 +78,7 @@ class AjaxVentas {
     echo json_encode($result);
   }
   public function estado(){
-    echo VentasControlador::ctrActualizarEstado($this->estado, $this->idVenta);
+    echo VentasControlador::ctrActualizarEstado($this->estado, $this->idVenta, $this->data);
   }
 
   public function obtener_codigo() {
@@ -124,6 +124,7 @@ if (isset($_POST["idVenta"])) {
     $Venta = new AjaxVentas();
     $Venta->estado = $_POST["estado"];
     $Venta->idVenta = $_POST["id"];
+    $Venta->data = $_POST["data"];
     $Venta->estado();
   }else if($_POST["type"] == 'crear_venta'){
     session_start();
@@ -138,6 +139,7 @@ if (isset($_POST["idVenta"])) {
       'montopagar' => $_POST['montopagar'],
       'totalfinal' => $_POST['totalfinal'],
       'subtotal' => $_POST['subtotal'],
+      'efectivoRecibido' => $_POST['efectivoRecibido'],
       'igv' => $_POST['igv'],
       'items' => json_decode($_POST['items']),
     ];

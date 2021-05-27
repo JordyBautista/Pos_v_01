@@ -80,7 +80,7 @@ function buscar_ventas(estado){
 buscar_ventas(null);
 
 
-function cambiarEstado(id,estado){
+function cambiarEstado(id,estado, total){
     Swal.fire({
         title: 'Escoge una opcion.',
         showDenyButton: true,
@@ -89,14 +89,46 @@ function cambiarEstado(id,estado){
         confirmButtonText: `Realizar`,
       }).then((result) => {
         if (result.isConfirmed) {
-          confirm_dialog(id,'2')
+          //confirm_dialog(id,'2')
+          $('#idVenta').val(id)
+          $('#MontoPagar').val(total)
+          $("#modal_cotizacion").modal('show')
         } else if (result.isDenied) {
-            confirm_dialog(id,'0')
+            confirm_dialog(id,'0',null)
         }
       })
    
 }
-function confirm_dialog(id,estado){
+function calcularCambio(e){
+    let montoPagar = $('#MontoPagar').val()
+    let efectivoRecibido = e.value
+    let cambio = efectivoRecibido - montoPagar
+    $('#Cambio').val(cambio.toFixed(1)) 
+}
+function realizarVenta(){
+    let efectivoRecibido = $('#EfectivoRecibido').val()
+    if (efectivoRecibido != '') {        
+        let data = {
+            efectivoRecibido
+        }
+        let id = $('#idVenta').val()
+        confirm_dialog(id,2,data)
+    }else{
+        Swal.fire(
+            'Error!',
+            'Es obligatorio ingresar una fecha y el efectivo recibido.',
+            'warning'
+        )
+    }
+    //console.log(data)
+}
+function limpiarmodal(){
+    $('#idVenta').val('')
+    $('#MontoPagar').val('')
+    $('#EfectivoRecibido').val('')
+    $('#Cambio').val('')
+}
+function confirm_dialog(id,estado,data){
     let estado_msg = estado == '2' ? '¿Desea realizar la venta?':'¿Desea cancelar la venta?'
     Swal.fire({
         title: 'Confirme la accion',
@@ -111,10 +143,13 @@ function confirm_dialog(id,estado){
             $.ajax({
                 type: "post",
                 url: "Ajax/Ventas.Ajax.php",
-                data: {type:'estado', id, estado},
+                data: {type:'estado', id, estado, data},
                 success: function (response) {
                     console.log(response)
                     if (response) {
+                        if (estado == 2) {
+                            $("#modal_cotizacion").modal('hide')
+                        }
                         $('#TablaDeVentas_001').DataTable().ajax.reload();
                         Swal.fire(
                             'Bien hecho!',

@@ -6,8 +6,9 @@ class VentasControlador {
         $tabla = "Ventas";
         return VentasModelo::mdlMostrarVentas($tabla, $item, $valor);
     }
-    static public function ctrActualizarEstado($estado, $id) {
+    static public function ctrActualizarEstado($estado, $id, $data) {
         if ($estado == '2') {
+            VentasModelo::mdlActualizar_data($data, $id);
             $detalle = VentasModelo::mdlMostrarVentaDetalle('detalleVenta','idVentaDV',$id);
             foreach ($detalle as $key => $item) {
                 $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item['idProductoDV'])[0];

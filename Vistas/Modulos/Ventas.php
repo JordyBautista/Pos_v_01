@@ -88,11 +88,63 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="modal_cotizacion" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        
+        <div class="modal-content">
+            <div class="modal-header" style="background:#3c8dbc; color:white">
+                <h5 class="modal-title">Ingresar información</h5>
+                <button onclick="limpiarmodal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">            
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                    <input type="hidden" id="idVenta">
+                        <div class="form-row">                       
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-normal">A pagar</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-money-check-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" name="MontoPagar" id="MontoPagar" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-normal">Efectivo recibido</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-hand-holding-usd"></i></span>
+                                    </div>
+                                    <input onkeyup="calcularCambio(this)" type="number" class="form-control form-control-sm EfectivoRecibido" id="EfectivoRecibido" name="EfectivoRecibido">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="font-weight-normal">Cambio</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-money-check-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm" id="Cambio" name="Cambio" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button onclick="realizarVenta()" class="col-md-12 btn btn-primary">Realizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
-
 
 // $(function () {
 //   $('[data-toggle="popover"]').popover({

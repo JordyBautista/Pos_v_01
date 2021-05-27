@@ -71,7 +71,7 @@ class ProductosDataTableAjax {
             /* =============================================
               TRAEMOS LAS ACCIONES
               ============================================= */
-            $botones = "<div class='btn-group'><button class='btn btn-sm bg-warning btnEditarProducto'   data-target='#ModalEditarProducto' idProducto='" . $Productos[$i]["idProducto"] . "' data-toggle='modal'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-danger btnEliminarProducto' idProducto='" . $Productos[$i]["idProducto"] . "'  fotoProducto='" .$Productos[$i]['Fotografia'] . "' ><i class='fas fa-trash-alt'></i></button></div>";
+            $botones = "<div class='btn-group'><button class='btn btn-sm bg-warning btnEditarProducto' idProducto='" . $Productos[$i]["idProducto"] . "'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-danger btnEliminarProducto' idProducto='" . $Productos[$i]["idProducto"] . "'  fotoProducto='" .$Productos[$i]['Fotografia'] . "' ><i class='fas fa-trash-alt'></i></button></div>";
 
             $datosJson .='[
             "' . ($i + 1) . '",

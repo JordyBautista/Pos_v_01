@@ -18,7 +18,7 @@ class ProductosModelo {
 
     static public function mdlCrearProducto($tabla, $datos) {
 
-        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla(idProducto, CodigoProveedor, NombreProducto, Descripcion, CodigoMarca, CodigoPresentacion, CodigoCategoria,Fotografia,Stock,StockMaximo,StockMinimo,PrecioCompra,PrecioVenta,VentasProducto)VALUES(:idProducto,:CodigoProveedor,:NombreProducto,:Descripcion,:CodigoMarca,:CodigoPresentacion,:CodigoCategoria,:Fotografia,:Stock,:StockMaximo,:StockMinimo,:PrecioCompra,:PrecioVenta,:VentasProducto)");
+        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla(idProducto, CodigoProveedor, NombreProducto, Descripcion, CodigoMarca, CodigoPresentacion, CodigoCategoria,Fotografia,Stock,StockMaximo,StockMinimo,PrecioCompra,PrecioVenta,VentasProducto, Estado)VALUES(:idProducto,:CodigoProveedor,:NombreProducto,:Descripcion,:CodigoMarca,:CodigoPresentacion,:CodigoCategoria,:Fotografia,:Stock,:StockMaximo,:StockMinimo,:PrecioCompra,:PrecioVenta,:VentasProducto,'1')");
 
         $stmt->bindParam(":idProducto", $datos["idProducto"], PDO::PARAM_STR);
         $stmt->bindParam(":CodigoProveedor", $datos["CodigoProveedor"], PDO::PARAM_STR);
@@ -35,13 +35,7 @@ class ProductosModelo {
         $stmt->bindParam(":PrecioVenta", $datos["PrecioVenta"], PDO::PARAM_STR);
         $stmt->bindParam(":VentasProducto", $datos["VentasProducto"], PDO::PARAM_INT);
 
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-        $stmt->close();
-        $stmt = null;
+        return $stmt->execute();
     }
 
     /* =============================================
@@ -106,9 +100,6 @@ class ProductosModelo {
             $stmt->execute();
             return $stmt->fetchAll();
         }
-
-        $stmt->close();
-        $stmt = null;
     }
 
     /* =============================================

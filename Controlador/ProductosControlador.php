@@ -10,74 +10,76 @@ class ProductosControlador {
     }
 
     static public function ctrCrearProductos() {
-
         if (isset($_POST["IngresoProducto"])) {
+            # code...
             if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["IngresoProducto"])) {
-
-
+    
+    
                 $ruta = "Vistas/img/Productos/Default/DefaultProducto.png";
-
-                if (isset($_FILES["nuevaFoto"]["tmp_name"])) {
-
-                    list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
-
-                    $nuevoAncho = 500;
-                    $nuevoAlto = 500;
-
-                    /* =============================================
-                      CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL PRODUCTO
-                      ============================================= */
-
-                    $directorio = "Vistas/img/Productos/" . $_POST["IngresoCodigo"];
-
-                    mkdir($directorio, 0755);
-
-                    /* =============================================
-                      DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
-                      ============================================= */
-
-                    if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
-
+    
+                if (!empty($_FILES["nuevaFoto"]["tmp_name"])) {                
+                    if (isset($_FILES["nuevaFoto"]["tmp_name"])) {
+        
+                        list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+        
+                        $nuevoAncho = 500;
+                        $nuevoAlto = 500;
+        
                         /* =============================================
-                          GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-                          ============================================= */
-
-                        $aleatorio = mt_rand(100, 999);
-
-                        $ruta = "Vistas/img/Productos/" . $_POST["IngresoCodigo"] . "/" . $aleatorio . ".jpg";
-
-                        $origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
-
-                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-                        imagejpeg($destino, $ruta);
-                    }
-
-                    if ($_FILES["nuevaFoto"]["type"] == "image/png") {
-
+                            CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL PRODUCTO
+                            ============================================= */
+        
+                        $directorio = "Vistas/img/Productos/" . $_POST["IngresoCodigo"];
+        
+                        mkdir($directorio, 0755);
+        
                         /* =============================================
-                          GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-                          ============================================= */
-
-                        $aleatorio = mt_rand(100, 999);
-
-                        $ruta = "Vistas/img/Productos/" . $_POST["IngresoCodigo"] . "/" . $aleatorio . ".png";
-
-                        $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
-
-                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-                        imagepng($destino, $ruta);
+                            DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
+                            ============================================= */
+        
+                        if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
+        
+                            /* =============================================
+                                GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+                                ============================================= */
+        
+                            $aleatorio = mt_rand(100, 999);
+        
+                            $ruta = "Vistas/img/Productos/" . $_POST["IngresoCodigo"] . "/" . $aleatorio . ".jpg";
+        
+                            $origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
+        
+                            $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+        
+                            imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+        
+                            imagejpeg($destino, $ruta);
+                        }
+        
+                        if ($_FILES["nuevaFoto"]["type"] == "image/png") {
+        
+                            /* =============================================
+                                GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+                                ============================================= */
+        
+                            $aleatorio = mt_rand(100, 999);
+        
+                            $ruta = "Vistas/img/Productos/" . $_POST["IngresoCodigo"] . "/" . $aleatorio . ".png";
+        
+                            $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
+        
+                            $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+        
+                            imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+        
+                            imagepng($destino, $ruta);
+                        }
                     }
                 }
-
+    
                 $tabla = "Productos";
                 $VentasProducto = "0";
-
+    
                 $datos = array("idProducto" => $_POST["IngresoCodigo"],
                     "CodigoProveedor" => $_POST["IngresoProveedor"],
                     "NombreProducto" => $_POST["IngresoProducto"],
@@ -92,18 +94,16 @@ class ProductosControlador {
                     "StockMinimo" => $_POST["IngresoStockMinimo"],
                     "PrecioCompra" => $_POST["IngresoPrecioCompra"],
                     "PrecioVenta" => $_POST["IngresoPrecioVenta"]);
-
-
-                $respuesta = ProductosModelo::mdlCrearProducto($tabla, $datos);
-
-                if ($respuesta == "ok") {
-
+    
+    
+                $re = ProductosModelo::mdlCrearProducto($tabla, $datos);
+                if ($re) {
                     echo '<script>
 
 					Swal.fire({
 
 						type: "success",
-						title: "¡El usuario ha sido guardado correctamente!",
+						title: "¡El Producto ha sido modificado correctamente!",
 						showConfirmButton: true,
 						confirmButtonText: "Cerrar"
 
@@ -119,30 +119,52 @@ class ProductosControlador {
 
 
 							</script>';
-                }
-            } else {
+                }else{
+                    echo '<script>
 
+                    Swal.fire({
+
+                        type: "error",
+                        title: "¡El Producto no puede ir vacío o llevar caracteres especiales!",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+
+                        }).then(function(result){
+
+                            if(result.value){
+
+                                window.location = "Productos";
+
+                            }
+
+                            });
+
+
+                            </script>';
+                }
+    
+            }else{
                 echo '<script>
 
-						Swal.fire({
+                Swal.fire({
 
-							type: "error",
-							title: "¡El Producto no puede ir vacío o llevar caracteres especiales!",
-							showConfirmButton: true,
-							confirmButtonText: "Cerrar"
+                    type: "error",
+                    title: "¡El Producto no puede ir vacío o llevar caracteres especiales!",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar"
 
-							}).then(function(result){
+                    }).then(function(result){
 
-								if(result.value){
+                        if(result.value){
 
-									window.location = "Productos";
+                            window.location = "Productos";
 
-								}
+                        }
 
-								});
+                        });
 
 
-								</script>';
+                        </script>';
             }
         }
     }

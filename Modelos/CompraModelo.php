@@ -41,11 +41,10 @@ class ComprasModelo {
 
     static public function mdlActualizar_estado($estado, $id){
         $stmt = ConexionBD::Conecction()->prepare("UPDATE compras SET  estado=:estado  WHERE idCompra=:id");
-
         $stmt->bindParam(":estado", $estado, PDO::PARAM_STR);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
         return $stmt->execute();
-      }
+    }
 
     static public function mdlCrearCompra($tabla, $datos, $codigo) {
         $sql = ConexionBD::Conecction();

@@ -18,8 +18,9 @@ class VentasModelo {
 
     static public function mdlCrearVenta($tabla, $datos, $estado) {
         $sql = ConexionBD::Conecction();
-        $stmt = $sql->prepare("INSERT INTO ".$tabla."(Codigo, idCliente, idVendedor, Impuesto, Neto,Descuento,tipoVenta, Total, MetodoPago,Estado) VALUES (:Codigo,:idCliente,:idVendedor,:Impuesto,:Neto,:Descuento,:tipoVenta,:Total,:MetodoPago,:Estado)");
+        $stmt = $sql->prepare("INSERT INTO ".$tabla."(Codigo, idCliente, idVendedor, Impuesto, Neto,Descuento,tipoVenta, Total, MetodoPago,Estado,efectivoRecibido) VALUES (:Codigo,:idCliente,:idVendedor,:Impuesto,:Neto,:Descuento,:tipoVenta,:Total,:MetodoPago,:Estado, :efectivoRecibido)");
         $idUsuario = $datos["idUsuario"];
+        $efectivoRecibido = $datos["efectivoRecibido"] == '' ? '0.00' :$datos["efectivoRecibido"] ;
         $stmt->bindParam(":Codigo", $datos["codigoVenta"], PDO::PARAM_STR);
         $stmt->bindParam(":idCliente", $datos["idCliente"], PDO::PARAM_STR);
         $stmt->bindParam(":idVendedor", $idUsuario, PDO::PARAM_STR);
@@ -30,6 +31,7 @@ class VentasModelo {
         $stmt->bindParam(":Total", $datos["totalfinal"], PDO::PARAM_STR);
         $stmt->bindParam(":MetodoPago", $datos["metodoPago"], PDO::PARAM_STR);
         $stmt->bindParam(":Estado", $estado , PDO::PARAM_STR_CHAR);
+        $stmt->bindParam(":efectivoRecibido", $efectivoRecibido , PDO::PARAM_STR_CHAR);
         
         if ($stmt->execute()) {
             $id = $sql->lastInsertId();
@@ -47,6 +49,14 @@ class VentasModelo {
         $stmt->bindParam(":idProductoDV", $datos->idProducto, PDO::PARAM_STR_CHAR);
         $stmt->bindParam(":cantidad", $datos->cantidad, PDO::PARAM_INT);
         $stmt->bindParam(":importe", $datos->total, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    static public function mdlActualizar_data($data, $id){
+        $stmt = ConexionBD::Conecction()->prepare("UPDATE ventas SET  efectivoRecibido=:efectivoRecibido,Fecha=now()   WHERE idVenta=:id");
+
+        $stmt->bindParam(":efectivoRecibido", $data['efectivoRecibido'], PDO::PARAM_STR);
+        $stmt->bindParam(":id", $id, PDO::PARAM_STR);
         return $stmt->execute();
     }
     static public function mdlActualizar_estado($estado, $id){

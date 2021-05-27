@@ -45,7 +45,7 @@ class ProductosAlquilerDataTableAjax {
             /* =============================================
               TRAEMOS LAS ACCIONES
               ============================================= */
-            $botones = "<div class='btn-group'><button class='btn btn-sm bg-warning btnEditarProductoAlquiler'   data-target='#ModalEditarProductoAlquiler' idProductoAlquiler='" . $Productos[$i]["idProductoAlquiler"] . "' data-toggle='modal'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-danger btnEliminarProductoAlquiler' idProductoAlquiler='" . $Productos[$i]["idProductoAlquiler"] . "'  fotoProductoAlquiler='" .$Productos[$i]['Fotografia'] . "' ><i class='fas fa-trash-alt'></i></button></div>";
+            $botones = "<div class='btn-group'><button class='btn btn-sm bg-warning' onclick='editarProductoAlguiler(" . $Productos[$i]["idProductoAlquiler"] . ")'   data-target='#ModalEditarProductoAlquiler' idProductoAlquiler='" . $Productos[$i]["idProductoAlquiler"] . "' data-toggle='modal'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-danger btnEliminarProductoAlquiler' idProductoAlquiler='" . $Productos[$i]["idProductoAlquiler"] . "'  fotoProductoAlquiler='" .$Productos[$i]['Fotografia'] . "' ><i class='fas fa-trash-alt'></i></button></div>";
 
             $datosJson .='[
             "' . ($i + 1) . '",

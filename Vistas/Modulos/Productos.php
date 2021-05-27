@@ -77,10 +77,10 @@
 <div class="modal fade" id="ModalNuevoProducto" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg ">
         <div class="modal-content">
+<!-- id="producto_form" action="Ajax/Productos.Ajax.php"-->
+            <form  id="producto_form" method="post" enctype="multipart/form-data">
 
-            <form method="post" enctype="multipart/form-data">
-
-
+            
                 <div class="modal-header" style="background:#3c8dbc; color:white">
                     <h5 class="modal-title">Nuevo Producto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -88,7 +88,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
+                <input type="hidden" value="guardar" name="type">
                     <div class="form-row">
 
                         <div class="form-group col-md-4">
@@ -269,15 +269,6 @@
                             </div>
                         </div>
                         <div class="form-group col-md-4">
-                            <label>Porcentaje de venta</label>
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-barcode"></i></span>
-                                </div>
-                                <input type="text" class="form-control" name="IngresoPorcentajeVenta">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4">
                             <label>Precio de venta</label>
                             <div class="input-group input-group-sm">
                                 <div class="input-group-prepend">
@@ -287,20 +278,7 @@
                             </div>
                         </div>
 
-
-
-
-
-
                     </div>
-
-
-
-
-
-
-
-
 
 
                     <!-- ENTRADA PARA SUBIR FOTO -->
@@ -367,7 +345,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
+                <input type="hidden" value="modificar" name="type">
                     <div class="form-row">
 
                         <div class="form-group col-md-4">
@@ -386,8 +364,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="EditarProveedor">
-                                    <option id="EditarProveedor"></option>
+                                <select id="EditarProveedor" class="form-control select2bs4" name="EditarProveedor">
                                     <?php
                                     $item = null;
                                     $valor = null;
@@ -419,7 +396,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="EditarMarca"  >
+                                <select id="EditarMarca" class="form-control select2bs4" name="EditarMarca"  >
 
                                     <?php
                                     $item = null;
@@ -429,7 +406,7 @@
 
                                     foreach ($Marca as $key => $value) {
 
-                                        echo '<option value="' . $value["Codigo"] . '" id="EditarMarca">' . $value["Marca"] . '</option>';
+                                        echo '<option value="' . $value["Codigo"] . '" >' . $value["Marca"] . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -443,7 +420,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="EditarCategoria" >
+                                <select id="EditarCategoria" class="form-control select2bs4" name="EditarCategoria" >
 
                                     <?php
                                     $item = null;
@@ -453,7 +430,7 @@
 
                                     foreach ($Cat as $key => $value) {
 
-                                        echo '<option value="' . $value["Codigo"] . '" id="EditarCategoria">' . $value["Categoria"] . '</option>';
+                                        echo '<option value="' . $value["Codigo"] . '" >' . $value["Categoria"] . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -467,7 +444,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="EditarPresentacion">
+                                <select  id="EditarPresentacion" class="form-control select2bs4" name="EditarPresentacion">
 
                                     <?php
                                     $item = null;
@@ -477,7 +454,7 @@
 
                                     foreach ($Presentacion as $key => $value) {
 
-                                        echo '<option value="' . $value["Codigo"] . '"  id="EditarPresentacion">' . $value["Presentacion"] . '</option>';
+                                        echo '<option value="' . $value["Codigo"] . '">' . $value["Presentacion"] . '</option>';
                                     }
                                     ?>
                                 </select>

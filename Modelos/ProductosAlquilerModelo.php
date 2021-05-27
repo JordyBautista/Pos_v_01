@@ -12,7 +12,7 @@ class ProductosAlquilerModelo {
 
     static public function mdlCrearProductoAlquiler($tabla, $datos) {
 
-        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla (Descripcion, idMarca, Serie, Placa, Ubicacion, Observaciones, PrecioAlquiler, Fotografia, Estado) VALUES (:Descripcion, :idMarca, :Serie, :Placa, :Ubicacion, :Observaciones, :PrecioAlquiler, :Fotografia, :Estado)");
+        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla (Descripcion, idMarca, Serie, Placa, Ubicacion, Observaciones, PrecioAlquiler, Fotografia, Estado, FechaRegistro) VALUES (:Descripcion, :idMarca, :Serie, :Placa, :Ubicacion, :Observaciones, :PrecioAlquiler, :Fotografia, :Estado, now())");
 
         $stmt->bindParam(":Descripcion", $datos["Descripcion"], PDO::PARAM_STR);
         $stmt->bindParam(":idMarca", $datos["idMarca"], PDO::PARAM_INT);
@@ -24,13 +24,7 @@ class ProductosAlquilerModelo {
         $stmt->bindParam(":PrecioAlquiler", $datos["PrecioAlquiler"], PDO::PARAM_STR);
         $stmt->bindParam(":Estado", $datos["Estado"], PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-        $stmt->close();
-        $stmt = null;
+        return $stmt->execute();
     }
 
     /* =============================================
