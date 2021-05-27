@@ -200,6 +200,7 @@ $("#TablaCompras-ProductosGeneral tbody").on("click", "button.btnAddProductosCom
         data: {idProducto, type: 'obtener_producto'},
         success: function (respuesta) {
             respuesta = JSON.parse(respuesta)
+            
             //console.log("productos",respuesta);
             var Descripcion = respuesta[0]["NombreProducto"];
             var Stock = respuesta[0]["Stock"];
