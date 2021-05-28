@@ -37,6 +37,7 @@
                         </p>
                     </a>
                 </li>
+                <?php if($_SESSION["Perfil"] == 'Administrador'){ ?>
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -70,6 +71,8 @@
 
                     </ul>
                 </li>
+                <?php } ?>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-cart-plus"></i>
