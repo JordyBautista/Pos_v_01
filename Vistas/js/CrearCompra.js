@@ -333,7 +333,17 @@ function guardarCompra(){
             success: function (response) {
                 console.log(response)
                 if (response) {
-                    window.location.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        title: "La compra se realizo con exito.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+            
+                        })
+                        setTimeout(() => {
+                            
+                            window.location.reload();
+                        }, 1500);
                 }else{
                     Swal.fire({
                         icon: 'error',

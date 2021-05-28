@@ -181,36 +181,48 @@ function escogercliente(id){
 
 var ArrayProducto = [];
 function agregar(id){
-    let FECHA = $('#datetimepicker_input').val();
-    if(FECHA != ''){
-        $.ajax({
-            url: "Ajax/Productos.Ajax.php",
-            method: "get",
-            data: {id, type:'obtener_prod_alq'},
-            success: function (response) {
-                response = JSON.parse(response)
-                //let ID = response[0]['idProductoAlquiler']
-                let PLACA = response[0]['Placa']
-                let PRECIO = response[0]['PrecioAlquiler']
-                //console.log(response)
-                $("#btn_producto_"+id).prop("disabled", true)
-                let index = ArrayProducto.length + 1
-                var TablaAlquiler = $('.TablaProductosAddAlquiler').DataTable()
-                TablaAlquiler.row.add(["<tr><td><input value='" + id + "' type='hidden' id='idproducto" + index + "'/><span id='placa" + id + "'>" + PLACA + "</span></td>",
-                    "<td><span id='precio" + index + "'>" + PRECIO + "</span></td>",
-                    "<td><span id='fecha" + index + "'>" + FECHA + "</span></td>",
-                    "<td><button class='remove_btn btn btn-danger' onclick='remover(this,"+id+")'><i class='fas fa-trash'></i></button></td></tr>",
-                   ]).draw(true);
-                ArrayProducto.push(id)
-                $('#datetimepicker').data("DateTimePicker").clear()
-                precioTotal()
-            }
-        });
+    if (!verificar(id)) {
+        
+        let FECHA = $('#datetimepicker_input').val();
+        if(FECHA != ''){
+            $.ajax({
+                url: "Ajax/Productos.Ajax.php",
+                method: "get",
+                data: {id, type:'obtener_prod_alq'},
+                success: function (response) {
+                    response = JSON.parse(response)
+                    //let ID = response[0]['idProductoAlquiler']
+                    let PLACA = response[0]['Placa']
+                    let PRECIO = response[0]['PrecioAlquiler']
+                    //console.log(response)
+                    $("#btn_producto_"+id).prop("disabled", true)
+                    let index = ArrayProducto.length + 1
+                    var TablaAlquiler = $('.TablaProductosAddAlquiler').DataTable()
+                    TablaAlquiler.row.add(["<tr><td><input value='" + id + "' type='hidden' id='idproducto" + index + "'/><span id='placa" + id + "'>" + PLACA + "</span></td>",
+                        "<td><span id='precio" + index + "'>" + PRECIO + "</span></td>",
+                        "<td><span id='fecha" + index + "'>" + FECHA + "</span></td>",
+                        "<td><button class='remove_btn btn btn-danger' onclick='remover(this,"+id+")'><i class='fas fa-trash'></i></button></td></tr>",
+                       ]).draw(true);
+                    ArrayProducto.push(id)
+                    $('#datetimepicker').data("DateTimePicker").clear()
+                    precioTotal()
+                }
+            });
+        }else{
+            Swal.fire({
+    
+                type: "error",
+                title: "Debe seleccionar una fecha.",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar"
+    
+                })
+        }
     }else{
         Swal.fire({
-
+    
             type: "error",
-            title: "Debe seleccionar una fecha.",
+            title: "El producto ya se encuentra en la lista.",
             showConfirmButton: true,
             confirmButtonText: "Cerrar"
 
@@ -230,6 +242,13 @@ function remover(obj,id){
     let indexArray = ArrayProducto.indexOf(id)
     ArrayProducto.splice(indexArray,1)
     precioTotal()
+}
+function verificar(id){
+    let index = ArrayProducto.indexOf(id)
+    if(index == -1){
+        return false;
+    }
+    return true;
 }
 
 function precioTotal() {

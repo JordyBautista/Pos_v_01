@@ -374,7 +374,18 @@ function guarar_venta(){
             data: {efectivoRecibido,tipoVenta,metodoPago,dscto,codigoVenta,idCliente,montopagar,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_venta'},
             success: function (response) {
                 if (response) {
-                    window.location.reload();
+                    Swal.fire({
+
+                        type: "success",
+                        title: "La venta se realizo con exito",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+            
+                        })
+                        setTimeout(() => {
+                            
+                            window.location.reload();
+                        }, 1500);
                 }else{
                     Swal.fire({
 
