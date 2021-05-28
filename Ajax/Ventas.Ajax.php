@@ -3,6 +3,8 @@
 require_once "../Controlador/VentasControlador.php";
 require_once "../Modelos/VentasModelo.php";
 require_once "../Modelos/ProductosModelo.php";
+require_once "../Modelos/ClientesModelo.php";
+require_once "../Modelos/UsuariosModelo.php";
 
 class AjaxVentas {
     /* =============================================
@@ -52,11 +54,12 @@ class AjaxVentas {
               $color = 'success';
           }
           $estado_boton = "<button class='btn btn-sm bg-".$color."' ".$funcion.">".$estado."</button>";
-
+          $cliente = ClientesModelo::mdlMostrarClientes('clientes','idCliente',$item['idCliente']);
+          $usuario = UsuariosModelo::mdlMostrarUsuarios('usuarios','idUsuario',$item['idVendedor']);
           $sub_array[] = $key +1;
           $sub_array[] = $item['Codigo'];
-          $sub_array[] = $item['idCliente'];
-          $sub_array[] = $item['idVendedor'];
+          $sub_array[] = $cliente['Nombres'];
+          $sub_array[] = $usuario['Usuario'];
           $sub_array[] = $item['MetodoPago'];
           $sub_array[] = $item['Total'];
           $sub_array[] = $item['Fecha'];

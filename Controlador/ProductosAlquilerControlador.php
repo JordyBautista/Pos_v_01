@@ -2,12 +2,62 @@
 
 class ProductosAlquilerControlador {
 
+    static public function ctrCrearAlquiler($data){
+        $id = ProductosAlquilerModelo::mdlCrearAlquiler("alquiler",$data);
+        $value = false;
+        if($id > 0){
+            foreach ($data['items'] as $key => $item) {
+                
+                $value = ProductosAlquilerModelo::mdlCrearAlquilerDetalle('alquilerdetalle',$item,$id);
+                ProductosAlquilerModelo::actualizar_estado('Alquilado', $item->idproducto);
+            }
+        }
+        return $value;
+    }
+    static function actualizar_observacion($observacion,$idDetalle, $idProducto,$idAlquiler){
+        $valor = ProductosAlquilerModelo::actualizar_observacion($observacion,$idDetalle);
+        ProductosAlquilerModelo::actualizar_estado('Disponible', $idProducto);
+        $cont = 0;
+        $detalle = ProductosAlquilerControlador::ctrMostrarAlquilerDetalle($idAlquiler);
+        foreach ($detalle as $key => $value) {
+            if($value['observacion'] == null){
+                $cont++;
+            }
+        }
+        if($cont == 0){
+            ProductosAlquilerModelo::actualizar_estado_alquiler('2',$idAlquiler);
+        }
+        return $valor;
+    }
+    static public function cancelar_alquiler($idAlquiler){
+        $valor = ProductosAlquilerModelo::actualizar_estado_alquiler('0',$idAlquiler);
+        $detalle = ProductosAlquilerControlador::ctrMostrarAlquilerDetalle($idAlquiler);
+        foreach ($detalle as $key => $value) {
+            ProductosAlquilerModelo::actualizar_estado('Disponible', $value['idProductoAlquiler']);
+        }
+        return $valor;
+    }
+    static public function ctrGetCode(){
+        return ProductosAlquilerModelo::mdlGetCode();
+    }
     static public function ctrMostrarProductosAlquiler($item, $valor) {
 
         $tabla = "ProductosAlquiler";
         return ProductosAlquilerModelo::mdlMostrarProductosAlquiler($tabla, $item, $valor); 
     }
+    static public function ctrMostrarAlquiler($item, $valor) {
 
+        $tabla = "alquiler";
+        return ProductosAlquilerModelo::mdlMostrarAlquiler($tabla, $item, $valor); 
+    }
+    static public function ctrMostrarAlquilerDetalle($id) {
+        return ProductosAlquilerModelo::mdlMostrarAlquilerDetalle($id); 
+    }
+    static public function ctrMostrarProductosAlquilerDisponible($item, $valor) {
+
+        $tabla = "ProductosAlquiler";
+        return ProductosAlquilerModelo::mdlMostrarProductosAlquilerDisponible($tabla, $item, $valor); 
+    }
     static public function ctrCrearProductosAlquiler() {
         if (isset($_POST["IngresoDescripcion"])) {
             

@@ -38,7 +38,7 @@ class StockProductosDataTableAjax {
             /* =============================================
               TRAEMOS LAS ACCIONES
               ============================================= */
-            $botones = "<div class='btn-group pl-3'><button class='btn btn-sm bg-warning btnEditarStockProducto ' data-target='#ModalEditarStockProducto' idProducto='" . $Productos[$i]["idProducto"] . "' data-toggle='modal'><i class='fas fa-edit'></i></button></div>";
+            $botones = "<div class='btn-group pl-3'><button class='btn btn-sm bg-warning btnEditarStockProducto ' idProducto='" . $Productos[$i]["idProducto"] . "' data-toggle='modal'><i class='fas fa-edit'></i></button></div>";
 
             $datosJson .='[
             "' . ($i + 1) . '",

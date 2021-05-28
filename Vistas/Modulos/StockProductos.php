@@ -148,20 +148,7 @@
                                 <input type="text" class="form-control" id="StockPrecioCompra" name="StockPrecioCompra">
                             </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label>Porcentaje de venta</label>
-                            <div class="input-group input-group-sm">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <input  type="checkbox" class="PorcentajeVenta">
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control nuevoPorcentaje" >
-                                <div class="input-group-append">
-                                    <div class="input-group-text"><i class="fas fa-percent"></i></div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="form-group col-md-4">
                             <label>Precio de venta</label>
                             <div class="input-group input-group-sm">

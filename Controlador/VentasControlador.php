@@ -22,6 +22,8 @@ class VentasControlador {
     
     static public function ctrDetalleVenta($id) : array{
         $venta = VentasModelo::mdlMostrarVentas('ventas','idVenta',$id);
+        $cliente = ClientesModelo::mdlMostrarClientes('clientes','idCliente',$venta['idCliente']);
+        $usuario = UsuariosModelo::mdlMostrarUsuarios('usuarios','idUsuario',$venta['idVendedor']);
         if ($venta) {
             $estado ='';
             if($venta['Estado'] == '1'){
@@ -33,8 +35,8 @@ class VentasControlador {
             }
             $result = [
                 'codigo' => $venta['Codigo'],
-                'cliente' => $venta['idCliente'],
-                'vendedor' => $venta['idVendedor'],
+                'cliente' => $cliente['Nombres'],
+                'vendedor' => $usuario['Usuario'],
                 'fecha' => $venta['Fecha'],
                 'estado' => $estado,
                 'metodo' => $venta['MetodoPago'],

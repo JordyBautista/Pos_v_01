@@ -22,6 +22,7 @@ class ComprasControlador {
 
     static public function ctrDetalleCompra($id) : array{
         $compra = ComprasModelo::mdlMostrarCompras('compras','idCompra',$id);
+        $proveedor = ProveedoresModelos::mdlMostrarProveedores('proveedor','Codigo',$compra['codProveedor']);
         if ($compra) {
             $estado ='';
             if($compra['estado'] == '1'){
@@ -33,7 +34,7 @@ class ComprasControlador {
             }
             $result = [
                 'codigo' => $compra['codigoCompra'],
-                'proveedor' => $compra['codProveedor'],
+                'proveedor' => $proveedor['RazonSocial'],
                 'fechaRegistro' => $compra['fechaRegistro'],
                 'estado' => $estado ,
             ];

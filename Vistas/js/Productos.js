@@ -216,27 +216,25 @@ $(".TablaStockProductos").on("click", ".btnEditarStockProducto", function () {
 
     var idProducto = $(this).attr("idProducto");
 
-    var datos = new FormData();
-    datos.append("idProducto", idProducto);
+    // var datos = new FormData();
+    // datos.append("idProducto", idProducto);
 
     $.ajax({
         url: "Ajax/Productos.Ajax.php",
         method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
+        data: {idProducto, type:'obtener_producto'},
         success: function (respuesta) {
+            respuesta = JSON.parse(respuesta)
+            console.log(respuesta)
 
-
-            $("#StockCodigo").val(respuesta["idProducto"]);
-            $("#StockNombreProducto").val(respuesta["NombreProducto"]);
-            $("#StockProducto").val(respuesta["Stock"]);
-            $("#StockMinimo").val(respuesta["StockMinimo"]);
-            $("#StockMaximo").val(respuesta["StockMaximo"]);
-            $("#StockPrecioCompra").val(respuesta["PrecioCompra"]);
-            $("#StockPrecioVenta").val(respuesta["PrecioVenta"]);
+            $("#StockCodigo").val(respuesta[0]["idProducto"]);
+            $("#StockNombreProducto").val(respuesta[0]["NombreProducto"]);
+            $("#StockProducto").val(respuesta[0]["Stock"]);
+            $("#StockMinimo").val(respuesta[0]["StockMinimo"]);
+            $("#StockMaximo").val(respuesta[0]["StockMaximo"]);
+            $("#StockPrecioCompra").val(respuesta[0]["PrecioCompra"]);
+            $("#StockPrecioVenta").val(respuesta[0]["PrecioVenta"]);
+            $("#ModalEditarStockProducto").modal('show')
         }
 
     })

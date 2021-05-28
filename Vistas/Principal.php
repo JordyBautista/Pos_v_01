@@ -120,9 +120,11 @@ session_start();
                         $_GET["Ruta"] == "OrdenDeCompra" ||
                         $_GET["Ruta"] == "HistorialDePrecios" ||
                              $_GET["Ruta"] == "ProductosAlquiler" ||
+                             $_GET["Ruta"] == "AlquilarMaquinaria" ||
+                             $_GET["Ruta"] == "DetalleAlquiler" ||
                         $_GET["Ruta"] == "AdministrarOrdenesDeCompra" ||
                         $_GET["Ruta"] == "Salir") {
-
+                          
                     include "Vistas/Modulos/" . $_GET["Ruta"] . ".php";
                 } else {
 
@@ -182,6 +184,12 @@ session_start();
           <?php } ?>
           <?php   if ($_GET["Ruta"] == "CrearCompra"){ ?>
             <script src="Vistas/js/CrearCompra.js"></script>
+          <?php } ?>
+          <?php   if ($_GET["Ruta"] == "AlquilarMaquinaria"){ ?>
+            <script src="Vistas/js/AlquilarMaquinaria.js"></script>
+          <?php } ?>
+          <?php   if ($_GET["Ruta"] == "DetalleAlquiler"){ ?>
+            <script src="Vistas/js/DetalleAlquiler.js"></script>
           <?php } ?>
         <?php } ?>
 

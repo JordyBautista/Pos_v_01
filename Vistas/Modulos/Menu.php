@@ -159,19 +159,24 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="DetalleAlquiler" class="nav-link">
+                                <p>Detalle Alquiler</p>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <p>Stock de Maquinarias</p>
                             </a>
-                        </li>
+                        </li> -->
 
 
                          <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="AlquilarMaquinaria" class="nav-link">
                                 <p>Alquiler de maquinarias </p>
                             </a>
                         </li>
 
-                         <li class="nav-item">
+                         <!-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <p>Orden de salida de los equipos </p>
                             </a>
@@ -181,7 +186,7 @@
                             <a href="#" class="nav-link">
                                 <p>Recepcion de los equipos</p>
                             </a>
-                        </li>
+                        </li> -->
 
                     </ul>
                 </li>

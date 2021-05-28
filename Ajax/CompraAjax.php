@@ -3,6 +3,7 @@
 require_once "../Controlador/ComprasControlador.php";
 require_once "../Modelos/CompraModelo.php";
 require_once "../Modelos/ProductosModelo.php";
+require_once "../Modelos/ProveedoresModelo.php";
 
 class CompraAjax {
     /* =============================================
@@ -38,10 +39,10 @@ class CompraAjax {
                 $color = 'success';
             }
             $estado_boton = "<button class='btn btn-sm bg-".$color."' ".$funcion.">".$estado."</button>";
-
+            $proveedor = ProveedoresModelos::mdlMostrarProveedores('proveedor','Codigo',$item['codProveedor']);
             $sub_array[] = $key +1;
             $sub_array[] = $item['codigoCompra'];
-            $sub_array[] = $item['codProveedor'];
+            $sub_array[] = $proveedor['RazonSocial'];
             $sub_array[] = $item['subTotal'];
             $sub_array[] = $item['igv'];
             $sub_array[] = $item['dscto'];
