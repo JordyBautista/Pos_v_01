@@ -14,8 +14,16 @@ class ProductosAlquilerControlador {
         }
         return $value;
     }
-    static function actualizar_observacion($observacion,$idDetalle, $idProducto,$idAlquiler){
-        $valor = ProductosAlquilerModelo::actualizar_observacion($observacion,$idDetalle);
+    static public function ctrMostrarAlquilerDetallePorId($id){
+        return ProductosAlquilerModelo::mdlMostrarAlquilerDetallePorId($id);
+    }
+    static function actualizar_observacion($data){
+        $observacion = $data['observacion'];
+        $tipo_observacion = $data['tipo_observacion'];
+        $idDetalle = $data['id'];
+        $idProducto = $data['producto'];
+        $idAlquiler = $data['alquiler'];
+        $valor = ProductosAlquilerModelo::actualizar_observacion($observacion,$tipo_observacion,$idDetalle);
         ProductosAlquilerModelo::actualizar_estado('Disponible', $idProducto);
         $cont = 0;
         $detalle = ProductosAlquilerControlador::ctrMostrarAlquilerDetalle($idAlquiler);

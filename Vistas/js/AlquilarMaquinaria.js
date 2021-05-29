@@ -41,7 +41,7 @@ function getNewCode(){
         url: "Ajax/Productos.Ajax.php",
         data: {type: 'obtener_cod_alq'},
         success: function (respuesta) {
-            console.log(respuesta)
+            //console.log(respuesta)
             $('#codigoAlquiler').html(respuesta);
         },
         error:function(e){
@@ -50,7 +50,37 @@ function getNewCode(){
     })
 }
 getNewCode()
-var datetimepicker = $('#datetimepicker').datetimepicker({
+$('#datetimepicker').datetimepicker({
+    minDate: new Date(),
+    allowInputToggle: true,
+    ignoreReadonly: true,
+    widgetParent: '#widget_parent',
+    //showClose: true,
+    showClear: true,
+    showTodayButton: true,
+    format: "YY-MM-DD HH:mm:ss",
+    icons: {
+        time:'fas fa-clock',
+
+        date:'fas fa-calendar-alt',
+
+        up:'fas fa-chevron-up',
+
+        down:'fas fa-chevron-down',
+
+        previous:'fas fa-chevron-left',
+
+        next:'fas fa-chevron-right',
+
+        today:'fas fa-calendar-day',
+
+        clear:'fas fa-trash',
+
+        close:'fas fa-times'
+        },
+
+});
+$('#datetimepicker_devolucion').datetimepicker({
     minDate: new Date(),
     allowInputToggle: true,
     ignoreReadonly: true,
@@ -184,7 +214,8 @@ function agregar(id){
     if (!verificar(id)) {
         
         let FECHA = $('#datetimepicker_input').val();
-        if(FECHA != ''){
+        let FECHA_DEVOLUCION = $('#datetimepicker_input_devolucion').val();
+        if(FECHA != '' && FECHA_DEVOLUCION != ''){
             $.ajax({
                 url: "Ajax/Productos.Ajax.php",
                 method: "get",
@@ -193,7 +224,10 @@ function agregar(id){
                     response = JSON.parse(response)
                     //let ID = response[0]['idProductoAlquiler']
                     let PLACA = response[0]['Placa']
-                    let PRECIO = response[0]['PrecioAlquiler']
+                    let dateSalida = $('#datetimepicker').data("DateTimePicker").viewDate();
+                    let dateDevolucion = $('#datetimepicker_devolucion').data("DateTimePicker").viewDate();
+                    let DIAS = dateDevolucion.diff(dateSalida,'days')
+                    let PRECIO = parseFloat(parseFloat(response[0]['PrecioAlquiler']) * DIAS).toFixed(1)
                     //console.log(response)
                     $("#btn_producto_"+id).prop("disabled", true)
                     let index = ArrayProducto.length + 1
@@ -201,10 +235,12 @@ function agregar(id){
                     TablaAlquiler.row.add(["<tr><td><input value='" + id + "' type='hidden' id='idproducto" + index + "'/><span id='placa" + id + "'>" + PLACA + "</span></td>",
                         "<td><span id='precio" + index + "'>" + PRECIO + "</span></td>",
                         "<td><span id='fecha" + index + "'>" + FECHA + "</span></td>",
+                        "<td><span id='fecha_d" + index + "'>" + FECHA_DEVOLUCION + "</span><input value='" + DIAS + "' type='hidden' id='dias" + index + "'/></td>",
                         "<td><button class='remove_btn btn btn-danger' onclick='remover(this,"+id+")'><i class='fas fa-trash'></i></button></td></tr>",
                        ]).draw(true);
                     ArrayProducto.push(id)
                     $('#datetimepicker').data("DateTimePicker").clear()
+                    $('#datetimepicker_devolucion').data("DateTimePicker").clear()
                     precioTotal()
                 }
             });
@@ -212,7 +248,7 @@ function agregar(id){
             Swal.fire({
     
                 type: "error",
-                title: "Debe seleccionar una fecha.",
+                title: "Debe seleccionar un rango de fechas.",
                 showConfirmButton: true,
                 confirmButtonText: "Cerrar"
     
@@ -277,6 +313,7 @@ function guardar(){
             'idproducto': $('#idproducto'+(i+1)).val(),
             'precio': $('#precio'+(i+1)).html(),
             'fecha': $('#fecha'+(i+1)).html(),
+            'fecha_d': $('#fecha_d'+(i+1)).html(),
         }
         items.push(obj)
     }
@@ -288,7 +325,17 @@ function guardar(){
             success: function (response) {
                 console.log(response)
                 if (response) {
-                    window.location.reload();
+                    Swal.fire({
+    
+                        icon: "success",
+                        title: "La informacion se registro con exito",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar"
+            
+                        })
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
                 }else{
                     Swal.fire({
     

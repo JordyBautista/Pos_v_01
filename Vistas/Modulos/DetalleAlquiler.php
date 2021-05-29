@@ -58,8 +58,8 @@
             
             <div class="modal-content">
                 <div class="modal-header" style="background:#3c8dbc; color:white">
-                    <h5 class="modal-title">Detalle de la Compra</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title">Detalle del Alquiler</h5>
+                    <button onclick="limpiarDetalle()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -87,6 +87,13 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-md-6">
+                                    <label for="">Tipo Observacion: </label>
+                                    <select id="tipo_observacion" class="form-control">
+                                        <option value="correcto">Correcto</option>
+                                        <option value="incorrecto">Incorrecto</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-12">
                                     <label for="">Observacion: </label>
                                     <textarea class="form-control" id="observacion"></textarea>
@@ -96,6 +103,7 @@
                                 <thead>
                                     <tr>
                                         <th>Placa</th>
+                                        <th>Fecha Salida</th>
                                         <th>Fecha Devolucion</th>
                                         <th>Precio</th>
                                         <th></th>

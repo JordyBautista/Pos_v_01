@@ -77,7 +77,17 @@ function buscar_alquiler(estado){
 
 buscar_alquiler('1');
 
-function verDetalle(id){
+function limpiarDetalle(){
+    $('#tipo_observacion').prop('disabled', false)
+    $('#observacion').prop('disabled', false)
+    $('#observacion').val('')
+    $('#tipo_observacion').val('correcto').trigger('change')
+}
+function verDetalle(id,estado){
+    if(estado == 2){
+        $('#tipo_observacion').prop('disabled', true)
+        $('#observacion').prop('disabled', true)
+    }
     $.ajax({
         type: "get",
         url: "Ajax/Productos.Ajax.php",
@@ -89,7 +99,7 @@ function verDetalle(id){
             $("#alq_codigo").html(response[0]['Codigo']);
             $("#alq_cliente").html(response[0]['idCliente']);
             $("#alq_fecha").html(response[0]['FechaRegistro']);
-            $("#alq_total").html(response[0]['PrecioAlquiler']);
+            $("#alq_total").html('S/. '+response[0]['PrecioAlquiler']);
             let estado;
             if (response[0]['Estado'] == '0') {
                 estado = 'Cancelado'
@@ -180,14 +190,17 @@ function buscar_alquiler_detalle(id){
 
 function modificarInfo(id,producto,alquiler){
     let observacion = $('#observacion').val();
+    let tipo_observacion = $('#tipo_observacion').val();
     if(observacion != ''){
         $.ajax({
             type: "post",
             url: "Ajax/Productos.Ajax.php",
-            data: {type:'modificar_observacion',observacion, id,producto,alquiler},
+            data: {type:'modificar_observacion',tipo_observacion,observacion, id,producto,alquiler},
             success: function (response) {
+                console.log(response)
                 if (response) {
                     $('#observacion').val('');
+                    $('#tabla_Alquiler').DataTable().ajax.reload();
                     $("#modal_detalle_alquiler").modal('hide');
                     Swal.fire({
 
@@ -264,4 +277,18 @@ function cancelar(id){
       })
  
 
+}
+
+function verMas(id){
+    $.ajax({
+        type: "get",
+        url: "Ajax/Productos.Ajax.php",
+        data: {id, type:'obtener_alq_det_id'},
+        success: function (response) {
+            response = JSON.parse(response)
+            //console.log(response)
+            $('#tipo_observacion').val(response['tipoObservacion']).trigger('change')
+            $('#observacion').val(response['observacion'])
+        }
+    });
 }

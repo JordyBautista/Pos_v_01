@@ -5,6 +5,7 @@ require_once "../Controlador/ProductosAlquilerControlador.php";
 require_once "../Modelos/ProductosModelo.php";
 require_once "../Modelos/ProductosAlquilerModelo.php";
 require_once "../Modelos/ClientesModelo.php";
+require_once "../Modelos/MarcasModelo.php";
 
 class AjaxProductos {
     /* =============================================
@@ -66,10 +67,11 @@ class AjaxProductos {
       foreach ($respuesta as $key => $item) {
           $sub_array = array();
 
+          $marca = MarcasModelos::mdlMostrarMarcas('marcas','Codigo',$item['idMarca']);
           $sub_array[] = $item['Placa'];
           $sub_array[] = $item['Descripcion'];
           $sub_array[] = $item['Serie'];
-          $sub_array[] = $item['idMarca'];
+          $sub_array[] = $marca['Marca'];
           $sub_array[] = $item['PrecioAlquiler'];
           $sub_array[] ="<button id='btn_producto_".$item['idProductoAlquiler']."' class='btn btn-primary' onclick='agregar(" . $item['idProductoAlquiler'] . ")'><i class='fas fa-plus'></i></button>";
 
@@ -118,7 +120,7 @@ class AjaxProductos {
           $sub_array[] = $cliente['Nombres'];
           $sub_array[] = $item['FechaRegistro'];
           $sub_array[] = 'S/. '.$item['PrecioAlquiler'];
-          $sub_array[] ="<button class='btn btn-primary' onclick='verDetalle(" . $item['idAlquiler'] . ")'><i class='fas fa-eye'></i></button>";
+          $sub_array[] ="<button class='btn btn-primary' onclick='verDetalle(" . $item['idAlquiler'] . "," . $item['Estado'] . ")'><i class='fas fa-eye'></i></button>";
           $sub_array[] =$btnCancelar;
 
           $data[] = $sub_array;
@@ -151,8 +153,12 @@ class AjaxProductos {
           $button = '--';
           if($item['observacion'] == null && $alq[0]['Estado']=='1'){
             $button = "<button class='btn btn-primary' onclick='modificarInfo(" . $item['idAlquilerDetalle'] . "," . $item['idProductoAlquiler'] . ",".$this->idProducto.")'><i class='fas fa-pencil-alt'></i></button>";
+          }else if($item['observacion'] != null && $alq[0]['Estado']=='2'){
+            $button = "<button class='btn btn-primary' onclick='verMas(" . $item['idAlquilerDetalle'] . ")'><i class='fas fa-eye'></i></button>";
           }
-          $sub_array[] = $item['idProductoAlquiler'];
+          $producto = ProductosModelo::mdlMostrarProductos('productosalquiler','idProductoAlquiler',$item['idProductoAlquiler']);
+          $sub_array[] = $producto[0]['Placa'];
+          $sub_array[] = $item['fechaSalida'];
           $sub_array[] = $item['fechaDevolucion'];
           $sub_array[] = 'S/. '.$item['precio'];
           $sub_array[] =$button;
@@ -167,10 +173,14 @@ class AjaxProductos {
       echo json_encode($results);
     }
     public function modificar_observacion(){
-      echo ProductosAlquilerControlador::actualizar_observacion($this->estado, $this->data, $this->idProducto,$this->item);
+      echo ProductosAlquilerControlador::actualizar_observacion($this->data);
     }
     public function cancelar_alquiler(){
       echo ProductosAlquilerControlador::cancelar_alquiler($this->idProducto);
+    }
+    public function obtener_alq_det_id(){
+      $respuesta = ProductosAlquilerControlador::ctrMostrarAlquilerDetallePorId($this->idProducto);
+      echo json_encode($respuesta);
     }
 }
 
@@ -182,7 +192,12 @@ if (isset($_GET["type"])) {
     $Producto = new AjaxProductos();
     $Producto->idProducto = $_GET["id"];
     $Producto->obtener_prod_alq();
-  }elseif ($_GET["type"] == 'obtener_alq_det') {
+  }elseif ($_GET["type"] == 'obtener_alq_det_id') {
+    $Producto = new AjaxProductos();
+    $Producto->idProducto = $_GET["id"];
+    $Producto->obtener_alq_det_id();
+  }
+  elseif ($_GET["type"] == 'obtener_alq_det') {
     $Producto = new AjaxProductos();
     $Producto->idProducto = $_GET["id"];
     $Producto->obtener_alq_det();
@@ -225,10 +240,17 @@ if (isset($_POST["type"])) {
     $Producto->guardar_producto();
   }else if ($_POST["type"] == 'modificar_observacion') {
     $Producto = new AjaxProductos();
-    $Producto->idProducto = $_POST['producto'];
-    $Producto->data = $_POST['id'];
-    $Producto->estado = $_POST['observacion'];
-    $Producto->item = $_POST['alquiler'];
+    // $Producto->idProducto = $_POST['producto'];
+    // $Producto->data = $_POST['id'];
+    // $Producto->estado = $_POST['observacion'];
+    // $Producto->item = $_POST['alquiler'];
+    $Producto->data = [
+      'producto'=>$_POST['producto'],
+      'id'=>$_POST['id'],
+      'observacion'=>$_POST['observacion'],
+      'tipo_observacion'=>$_POST['tipo_observacion'],
+      'alquiler'=>$_POST['alquiler'],
+    ];
     $Producto->modificar_observacion();
   }else if ($_POST["type"] == 'modificar') {
     $Producto = new AjaxProductos();

@@ -149,11 +149,19 @@ class ProductosAlquilerModelo {
             return $stmt->fetchAll();
         
     }
+    static function mdlMostrarAlquilerDetallePorId($id) {
+        $stmt = ConexionBD::Conecction()->prepare("SELECT * FROM alquilerdetalle where idAlquilerDetalle = :id");
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch();
+    
+}
 
-    static public function actualizar_observacion($observacion, $idProducto){
-        $stmt = ConexionBD::Conecction()->prepare("UPDATE alquilerdetalle SET  observacion=:observacion  WHERE idAlquilerDetalle=:idProducto");
+    static public function actualizar_observacion($observacion,$tipo_observacion, $idProducto){
+        $stmt = ConexionBD::Conecction()->prepare("UPDATE alquilerdetalle SET  observacion=:observacion,tipoObservacion=:tipo_observacion WHERE idAlquilerDetalle=:idProducto");
 
         $stmt->bindParam(":observacion", $observacion, PDO::PARAM_STR);
+        $stmt->bindParam(":tipo_observacion", $tipo_observacion, PDO::PARAM_STR);
         $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
         return $stmt->execute();
     }
@@ -210,9 +218,10 @@ class ProductosAlquilerModelo {
 
     static public function mdlCrearAlquilerDetalle($tabla, $datos, $id) {
         //$fecha = date('Y-d-m H:i:s',$datos->fecha.':00');
-        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO ".$tabla."(idProductoAlquiler, fechaDevolucion, precio, idAlquiler) VALUES (:idProductoAlquiler, :fechaDevolucion, :precio, :idAlquiler)");
+        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO ".$tabla."(idProductoAlquiler,fechaSalida, fechaDevolucion, precio, idAlquiler) VALUES (:idProductoAlquiler,:fechaSalida, :fechaDevolucion, :precio, :idAlquiler)");
         $stmt->bindParam(":idAlquiler", $id, PDO::PARAM_INT);
-        $stmt->bindParam(":fechaDevolucion", $datos->fecha, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaSalida", $datos->fecha, PDO::PARAM_STR);
+        $stmt->bindParam(":fechaDevolucion", $datos->fecha_d, PDO::PARAM_STR);
         $stmt->bindParam(":precio", $datos->precio, PDO::PARAM_STR);
         $stmt->bindParam(":idProductoAlquiler", $datos->idproducto, PDO::PARAM_INT);
         return $stmt->execute();

@@ -21,7 +21,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row invoice">
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <div class="card card-outline card-primary">
 
                         <div class="card-header pl-2 pb-0 m-0">
@@ -132,11 +132,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="card-body pt-1 pl-2 pr-2">
                         <div class="row">
                             <div class="col-md-5" id="widget_parent">
-                                Seleccionar Fecha:
+                                Seleccionar Fecha Salida:
                                 <div class="input-group date" id="datetimepicker">
                                     <input id="datetimepicker_input" readonly type="text" value="" class="form-control" placeholder="DD/NN/YYYY HH:mm"/>
                                     <label for="datetimepicker_input" class="input-group-text btn btn-secondary docs-datepicker-trigger">
@@ -144,9 +144,18 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5" id="widget_parent">
+                                Seleccionar Fecha Devolucion:
+                                <div class="input-group date" id="datetimepicker_devolucion">
+                                    <input id="datetimepicker_input_devolucion" readonly type="text" value="" class="form-control" placeholder="DD/NN/YYYY HH:mm"/>
+                                    <label for="datetimepicker_input_devolucion" class="input-group-text btn btn-secondary docs-datepicker-trigger">
+                                        <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                             
-                            <button class=" btn btn-success" onclick="guardar()">Registrar</button>
+                                <button class=" btn btn-success" onclick="guardar()">Registrar</button>
                             </div>
                         </div>
                         <br>
@@ -157,7 +166,8 @@
                                         <tr>
                                             <th>Placa</th>
                                             <th>Precio</th>
-                                            <th>Fecha</th>
+                                            <th>F. Salida</th>
+                                            <th>F. Devolucion</th>
                                             <th></th>
                                         </tr>
                                     </thead>
