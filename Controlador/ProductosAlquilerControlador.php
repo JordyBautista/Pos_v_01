@@ -24,7 +24,8 @@ class ProductosAlquilerControlador {
         $idProducto = $data['producto'];
         $idAlquiler = $data['alquiler'];
         $valor = ProductosAlquilerModelo::actualizar_observacion($observacion,$tipo_observacion,$idDetalle);
-        ProductosAlquilerModelo::actualizar_estado('Disponible', $idProducto);
+        $estado = $tipo_observacion == 'correcto' ? 'Disponible' : 'Mantenimiento';
+        ProductosAlquilerModelo::actualizar_estado($estado, $idProducto);
         $cont = 0;
         $detalle = ProductosAlquilerControlador::ctrMostrarAlquilerDetalle($idAlquiler);
         foreach ($detalle as $key => $value) {
