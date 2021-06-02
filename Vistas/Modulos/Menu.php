@@ -37,33 +37,30 @@
                         </p>
                     </a>
                 </li>
-                <?php if($_SESSION["Perfil"] == 'Administrador'){ ?>
+                <?php if($_SESSION["Perfil"] == 'Control_Colaboradores' || $_SESSION["Perfil"] == 'Administrador'){ ?>
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="fas fa-users-cog  nav-icon"></i>
                         <p>
-                            Gestion Personal
+                            Control de Colaboradores
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="Personal" class="nav-link">
-                                <i class="fas fa-user-tie nav-icon"></i>
                                 <p>Personal</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="Usuarios" class="nav-link">
-                                <i class="fa fa-user-friends nav-icon"></i>
                                 <p>Usuarios</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="Contactos" class="nav-link">
-                                <i class="fas fa-id-badge nav-icon"></i>
                                 <p>Contactos</p>
                             </a>
                         </li>
@@ -73,6 +70,8 @@
                 </li>
                 <?php } ?>
 
+                <?php if($_SESSION["Perfil"] == 'Administrador'){ ?>
+                
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-cart-plus"></i>
@@ -100,9 +99,8 @@
                         </li>
                     </ul>
                 </li>
-
-
-
+                <?php } ?>
+                <?php if($_SESSION["Perfil"] == 'Almacen' || $_SESSION["Perfil"] == 'Administrador'){ ?>
                 <li class="nav-item has-treeview">
                     <a class="nav-link">
                         <i class="nav-icon fas fa-shipping-fast"></i>
@@ -141,11 +139,8 @@
 
                     </ul>
                 </li>
-
-
-
-
-
+                <?php } ?>
+                <?php if($_SESSION["Perfil"] == 'Alquiler_Maquinarias' || $_SESSION["Perfil"] == 'Administrador'){ ?>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-truck"></i>
@@ -156,9 +151,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                        
-                        <li class="nav-item">
-                            <a href="ProductosAlquiler" class="nav-link">
-                                <p>Detalle de Maquinarias</p>
+                         <li class="nav-item">
+                            <a href="AlquilarMaquinaria" class="nav-link">
+                                <p>Alquiler de maquinarias </p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -166,34 +161,15 @@
                                 <p>Detalle Alquiler</p>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <p>Stock de Maquinarias</p>
-                            </a>
-                        </li> -->
-
-
-                         <li class="nav-item">
-                            <a href="AlquilarMaquinaria" class="nav-link">
-                                <p>Alquiler de maquinarias </p>
+                        <li class="nav-item">
+                            <a href="ProductosAlquiler" class="nav-link">
+                                <p>Detalle de Maquinarias</p>
                             </a>
                         </li>
-
-                         <!-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <p>Orden de salida de los equipos </p>
-                            </a>
-                        </li>
-
-                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <p>Recepcion de los equipos</p>
-                            </a>
-                        </li> -->
-
                     </ul>
                 </li>
-
+                <?php } ?>
+                <?php if($_SESSION["Perfil"] == 'Ventas' || $_SESSION["Perfil"] == 'Administrador'){ ?>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-tags"></i>
@@ -219,7 +195,10 @@
                             </a>
                         </li>
 
-                    </ul>
+                    </ul> 
+                </li>
+                <?php } ?>
+                <?php if($_SESSION["Perfil"] == 'Administrador'){ ?>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice"></i>
@@ -230,27 +209,23 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../../index.html" class="nav-link">
-                                <i class="fa fa-credit-card nav-icon"></i>
-                                <p>Facturas</p>
+                            <a href="Indicadores" class="nav-link">
+                                <p>Indicadores</p>
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="../../index.html" class="nav-link">
-                                <i class="fa fa-credit-card nav-icon"></i>
                                 <p>Reportes de Ventas</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="../../index2.html" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
                                 <p>Reporte de Compras</p>
                             </a>
-                        </li>
+                        </li> -->
 
                     </ul>
-                </li>
                 </li>
 
                 <li class="nav-item has-treeview">
@@ -268,33 +243,10 @@
                                 <p>Empresa</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
-                                <p>Factura</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="Perfil" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
-                                <p>Perfil</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="fa fa-cart-plus nav-icon"></i>
-                                <p>Permisos</p>
-                            </a>
-                        </li>
-
-
-
-
-
-
                     </ul>
                 </li>
+
+                <?php } ?>
 
             </ul>
         </nav>

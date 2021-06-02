@@ -113,7 +113,6 @@ if (isset($_GET["type"])){
           'idProveedor' => $_POST['idProveedor'],
           'totalfinal' => $_POST['totalfinal'],
           'subtotal' => $_POST['subtotal'],
-          'igv' => $_POST['igv'],
           'items' => json_decode($_POST['items']),
         ];
         $Compra->ajaxRealizarCompra();

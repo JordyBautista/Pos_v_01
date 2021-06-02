@@ -100,13 +100,6 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th>IGV (18%)</th>
-                                                <td>
-                                                    <span id="igv"></span>
-                                                    <input type="hidden"  name='IGV' id='IGV'>
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <th>Descuento:</th>
                                                 <td><input style="border: none;" disabled="disabled" type="number" min="0" max="100" id="dscto" name='dscto' value="0"></td>
                                             </tr>

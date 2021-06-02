@@ -49,7 +49,7 @@ class UsuariosDataTableAjax {
             /* =============================================
               TRAEMOS LAS ACCIONES
               ============================================= */
-            $botones = "<div class='btn-group'><button class='btn btn-sm bg-warning btnEditarUsuario'   data-target='#ModalEditarUsuario' idUsuario='" . $Usuario[$i]["idUsuario"] . "' data-toggle='modal'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-danger btnEliminarUsuario' idUsuario='" . $Usuario[$i]["idUsuario"] . "' ><i class='fas fa-trash-alt'></i></button></div>";
+            $botones = "<div class='btn-group'><button class='btn btn-sm bg-warning btnEditarUsuario' idUsuario='" . $Usuario[$i]["idUsuario"] . "'><i class='fas fa-edit'></i></button><button class='btn btn-sm bg-danger btnEliminarUsuario' idUsuario='" . $Usuario[$i]["idUsuario"] . "' ><i class='fas fa-trash-alt'></i></button></div>";
 
             $datosJson .='[
             "' . ($i + 1) . '",
@@ -57,7 +57,7 @@ class UsuariosDataTableAjax {
             "' . $Personal2.' ",
             "' . $Perfil["Perfil"] . '",
             "' . $Usuario[$i]["Usuario"] . '",
-            "' . $Usuario[$i]["Password"] . '",
+            
             "' . $Usuario[$i]["Estado"] . '",
             "' . $Usuario[$i]["FechaRegistro"] . '",
             "' . $botones . '"

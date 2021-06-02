@@ -26,7 +26,7 @@ class UsuariosControlador {
                 $respuesta = UsuariosModelo::mdlMostrarUsuarios($tabla, $item, $valor);
                 if ($respuesta) {
                     
-                    if ($respuesta["Usuario"] == $_POST["txtUsuario"] && $respuesta["Password"] == $_POST["txtContraseña"]) {
+                    if ($respuesta["Usuario"] == $_POST["txtUsuario"] && $respuesta["Contrasena"] == $encriptar) {
     
     
                         if ($respuesta["Estado"] == 1) {
@@ -67,20 +67,20 @@ class UsuariosControlador {
 
     static public function ctrCrearUsuario() {
 
-        if (isset($_POST["IngresoPersonal"])) {
+        if (isset($_POST["IngresoUsuario"])) {
             if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["IngresoUsuario"])) {
-                $tabla = "Usuarios";
+                $tabla = "usuarios";
 
                 $encriptar = crypt($_POST["IngresoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
-                $datos = array("idUsuario" => $_POST["IngresoPersonal"],
+                $datos = array(
                     "idPerfil" => $_POST["IngresoPerfil"],
                     "Usuario" => $_POST["IngresoUsuario"],
                     "Password" => $encriptar);
                 $respuesta = UsuariosModelo::mdlCrearUsuario($tabla, $datos);
 
 
-                if ($respuesta == "ok") {
+            if ($respuesta) {
                     echo '<script>
 					Swal.fire({
 						type: "success",
@@ -118,25 +118,26 @@ class UsuariosControlador {
 
 
 								</script>';
-            }
+            
         }
     }
-
+}
     static public function ctrEditarUsuario() {
 
-        if (isset($_POST["EditarCodigo"])) {
-            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["EditarCategoria"])) {
+        if (isset($_POST["EditarUsuario"])) {
+            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["EditarUsuario"])) {
 
 
-                $tabla = "Categorias";
+                $tabla = "usuarios";
 
-                $datos = array("Codigo" => $_POST["EditarCodigo"],
-                    "Categoria" => $_POST["EditarCategoria"],
+                $datos = array("usuario" => $_POST["EditarUsuario"],
+                    "idUsuario" => $_POST["idUsuario"],
+                    "perfil" => $_POST["EditarPerfil"],
                     "Estado" => $_POST["EditarEstado"]);
 
                 $respuesta = UsuariosModelo::mdlEditarUsuario($tabla, $datos);
 
-                if ($respuesta == "ok") {
+                if ($respuesta) {
 
                     echo '<script>
 

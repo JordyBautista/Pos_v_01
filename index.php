@@ -14,6 +14,7 @@ require_once 'Controlador/VentasControlador.php';
 require_once 'Controlador/ClientesControlador.php';
 require_once 'Controlador/EmpresaControlador.php';
 require_once 'Controlador/ProductosAlquilerControlador.php';
+require_once "Controlador/IndicadorControlador.php";
 
 
 
@@ -33,6 +34,7 @@ require_once 'Modelos/VentasModelo.php';
 require_once 'Modelos/ClientesModelo.php';
 require_once 'Modelos/EmpresaModelo.php';
 require_once 'Modelos/ProductosAlquilerModelo.php';
+require_once "Modelos/IndicadorModelo.php";
 
 
 

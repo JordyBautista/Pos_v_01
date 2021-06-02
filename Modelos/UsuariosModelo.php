@@ -7,23 +7,15 @@ class UsuariosModelo {
     
 
     static public function mdlCrearUsuario($tabla, $datos) {
+        $estado = 1;
+        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla(idPerfil,Usuario,Contrasena, Estado, FechaRegistro) VALUES(:idPerfil,:Usuario,:pw, :estado, now())");
 
-        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla
-                            (idUsuario,idPerfil,Usuario,Password)VALUES
-                            (:idUsuario,:idPerfil,:Usuario,:Password);");
-
-        $stmt->bindParam(":idUsuario", $datos["idUsuario"], PDO::PARAM_STR);
         $stmt->bindParam(":idPerfil", $datos["idPerfil"], PDO::PARAM_STR);
         $stmt->bindParam(":Usuario", $datos["Usuario"], PDO::PARAM_STR);
-        $stmt->bindParam(":Password", $datos["Password"], PDO::PARAM_STR);
+        $stmt->bindParam(":pw", $datos["Password"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $estado, PDO::PARAM_INT);
 
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-        $stmt->close();
-        $stmt = null;
+        return $stmt->execute();
     }
 
     /* =============================================
@@ -31,20 +23,14 @@ class UsuariosModelo {
       ============================================= */
 
     static public function mdlEditarUsuario($tabla, $datos) {
-        $stmt = ConexionBD::Conecction()->prepare("UPDATE $tabla SET idPerfil=:idPerfil,Usuario=:Usuario,Password=:Password,Estado=:Estado WHERE idUsuario=:idUsuario");
+        $stmt = ConexionBD::Conecction()->prepare("UPDATE $tabla SET idPerfil=:idPerfil,Usuario=:Usuario,Estado=:Estado WHERE idUsuario=:idUsuario");
 
-        $stmt->bindParam(":idUsuario", $datos[" idUsuario"], PDO::PARAM_STR);
-        $stmt->bindParam(":idPerfil", $datos[" idPerfil"], PDO::PARAM_STR);
-        $stmt->bindParam(":Usuario", $datos[" Usuario"], PDO::PARAM_STR);
-        $stmt->bindParam(":Password", $datos[" Password"], PDO::PARAM_STR);
+        $stmt->bindParam(":idUsuario", $datos["idUsuario"], PDO::PARAM_INT);
+        $stmt->bindParam(":idPerfil", $datos["perfil"], PDO::PARAM_STR);
+        $stmt->bindParam(":Usuario", $datos["usuario"], PDO::PARAM_STR);
+        $stmt->bindParam(":Estado", $datos["Estado"], PDO::PARAM_INT);
 
-        if ($stmt->execute()) {
-            return "ok";
-        } else {
-            return "error";
-        }
-        $stmt->close();
-        $stmt = null;
+        return $stmt->execute();
     }
 
     /* =============================================

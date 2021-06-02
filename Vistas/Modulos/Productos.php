@@ -97,7 +97,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="IngresoCodigo">
+                                <input required type="text" class="form-control" name="IngresoCodigo">
                             </div>
                         </div>
 
@@ -107,7 +107,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="IngresoProveedor">
+                                <select required class="form-control select2bs4" name="IngresoProveedor">
                                     <option value="">Seleccionar</option>
                                     <?php
                                     $item = null;
@@ -136,7 +136,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="IngresoMarca">
+                                <select required class="form-control select2bs4" name="IngresoMarca">
                                     <option value="">Seleccionar</option>
                                     <?php
                                     $item = null;
@@ -158,7 +158,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="IngresoCategoria">
+                                <select required class="form-control select2bs4" name="IngresoCategoria">
                                     <option value="">Seleccionar</option>
                                     <?php
                                     $item = null;
@@ -182,7 +182,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select class="form-control select2bs4" name="IngresoPresentacion">
+                                <select required class="form-control select2bs4" name="IngresoPresentacion">
                                     <option value="">Seleccionar</option>
                                     <?php
                                     $item = null;
@@ -207,7 +207,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="IngresoProducto" >
+                            <input required type="text" class="form-control" name="IngresoProducto" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -216,7 +216,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                             </div>
-                            <textarea type="text" class="form-control" name="IngresoDescripcion" ></textarea>
+                            <textarea required type="text" class="form-control" name="IngresoDescripcion" ></textarea>
                         </div>
                     </div>
 
@@ -228,7 +228,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="IngresoStock">
+                                <input required type="text" class="form-control" name="IngresoStock">
                             </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -237,7 +237,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="IngresoStockMinimo">
+                                <input required type="text" class="form-control" name="IngresoStockMinimo">
                             </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -246,7 +246,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="IngresoStockMaximo">
+                                <input required type="text" class="form-control" name="IngresoStockMaximo">
                             </div>
                         </div>
 
@@ -265,7 +265,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="IngresoPrecioCompra">
+                                <input required type="text" class="form-control" name="IngresoPrecioCompra">
                             </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -274,7 +274,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="IngresoPrecioVenta">
+                                <input required type="text" class="form-control" name="IngresoPrecioVenta">
                             </div>
                         </div>
 
@@ -354,7 +354,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="EditarCodigo" id="EditarCodigo" readonly>
+                                <input required type="text" class="form-control" name="EditarCodigo" id="EditarCodigo" readonly>
                             </div>
                         </div>
 
@@ -364,7 +364,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select id="EditarProveedor" class="form-control select2bs4" name="EditarProveedor">
+                                <select required id="EditarProveedor" class="form-control select2bs4" name="EditarProveedor">
                                     <?php
                                     $item = null;
                                     $valor = null;
@@ -396,7 +396,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select id="EditarMarca" class="form-control select2bs4" name="EditarMarca"  >
+                                <select required id="EditarMarca" class="form-control select2bs4" name="EditarMarca"  >
 
                                     <?php
                                     $item = null;
@@ -420,7 +420,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select id="EditarCategoria" class="form-control select2bs4" name="EditarCategoria" >
+                                <select required id="EditarCategoria" class="form-control select2bs4" name="EditarCategoria" >
 
                                     <?php
                                     $item = null;
@@ -444,7 +444,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                                 </div>
-                                <select  id="EditarPresentacion" class="form-control select2bs4" name="EditarPresentacion">
+                                <select required id="EditarPresentacion" class="form-control select2bs4" name="EditarPresentacion">
 
                                     <?php
                                     $item = null;
@@ -469,7 +469,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="EditarProducto" id="EditarProducto" >
+                            <input required type="text" class="form-control" name="EditarProducto" id="EditarProducto" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -478,7 +478,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-barcode"></i></span>
                             </div>
-                            <textarea type="text" class="form-control" name="EditarDescripcion" id="EditarDescripcion" ></textarea>
+                            <textarea required type="text" class="form-control" name="EditarDescripcion" id="EditarDescripcion" ></textarea>
                         </div>
                     </div>
 

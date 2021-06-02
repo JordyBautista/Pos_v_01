@@ -43,7 +43,6 @@
                                         <th>Personal</th>
                                         <th>Perfil</th>
                                         <th>Usuario</th>
-                                        <th>Contraseña</th>
                                         <th>Estado</th>
                                         <th>Fecha registro</th>
                                         <th style="width: 10%">Accion</th>
@@ -73,8 +72,8 @@
     <div class="modal-dialog ">
         <div class="modal-content">
 
-            <form method="post">
-
+            <form method="post" id="registrar_usuario_form">
+                <input type="hidden" name="registrar_usuario" value="registrausuario">
 
                 <div class="modal-header" style="background:#3c8dbc; color:white">
                     <h5 class="modal-title">Nuevo Usuarios
@@ -146,7 +145,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Ingresar Contraseña " name="IngresoPassword" required>
+                            <input type="password" class="form-control" placeholder="Ingresar Contraseña " name="IngresoPassword" required>
                         </div>
                     </div>
 
@@ -179,7 +178,7 @@
     <div class="modal-dialog ">
         <div class="modal-content">
 
-            <form method="post" enctype="multipart/form-data">
+            <form method="post">
 
 
                 <div class="modal-header" style="background:#3c8dbc; color:white">
@@ -193,11 +192,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                            </div>
-                            <input type="text" class="form-control"  id="EditarCodigo" name="EditarCodigo" readonly="">
-                            <input type="hidden" id="idPersonal" name="idPersonal">
+                            <input type="hidden" id="idUsuario" name="idUsuario">
                         </div>
                     </div>
 
@@ -206,9 +201,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" class="form-control"id="EditarUsuarios
-                                   " name="EditarUsuarios
-                                   " required>
+                            <input type="text" class="form-control" id="EditarUsuario" name="EditarUsuario" required>
                         </div>
                     </div>
 
@@ -217,9 +210,25 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="EditarDescripcion" name="EditarDescripcion" required>
+                            <select class="form-control input-sm" id="EditarPerfil" name="EditarPerfil" required>
+                                <option value="">Selecionar Perfil</option>
+                                <?php
+                                $item = null;
+                                $valor = null;
+                                $orden="idPerfil";
+
+                                $Perfil = PerfilControlador::ctrMostrarPerfil($item, $valor,$orden);
+
+                                foreach ($Perfil as $key => $value) {
+
+                                    echo '<option value="' . $value["idPerfil"] . '">' . $value["Perfil"] . '</option>';
+                                }
+                                ?>
+
+                            </select>
                         </div>
                     </div>
+
 
 
                     <div class="form-group">
@@ -227,10 +236,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
-                            <select class="form-control input-sm" name="EditarEstado">
-                                <option value="" id="EditarEstado"></option>
-                                <option value="01">Activo</option>
-                                <option value="02">Bloqueado</option>
+                            <select required class="form-control input-sm" name="EditarEstado" id="EditarEstado">
+                                <option value="1">Activo</option>
+                                <option value="0">Bloqueado</option>
 
                             </select>
 

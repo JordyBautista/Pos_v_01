@@ -99,34 +99,64 @@ session_start();
 
             if (isset($_GET["Ruta"])) {
 
-                if ($_GET["Ruta"] == "Inicio" ||
-                        $_GET["Ruta"] == "Marcas" ||
-                        $_GET["Ruta"] == "Personal" ||
-                        $_GET["Ruta"] == "Usuarios" ||
-                        $_GET["Ruta"] == "Productos" ||
-                        $_GET["Ruta"] == "Contactos" ||
-                        $_GET["Ruta"] == "Presentacion" ||
-                        $_GET["Ruta"] == "Categorias" ||
-                        $_GET["Ruta"] == "Proveedores" ||
-                        $_GET["Ruta"] == "Perfil" ||
-                        $_GET["Ruta"] == "Usuarios" ||
-                        $_GET["Ruta"] == "StockProductos" ||
-                        $_GET["Ruta"] == "Clientes" ||
-                        $_GET["Ruta"] == "Ventas" ||
-                        $_GET["Ruta"] == "CrearVenta" ||
-                        $_GET["Ruta"] == "Compras" ||
-                        $_GET["Ruta"] == "CrearCompra" ||
-                        $_GET["Ruta"] == "Empresa" ||
-                        $_GET["Ruta"] == "OrdenDeCompra" ||
-                        $_GET["Ruta"] == "HistorialDePrecios" ||
-                             $_GET["Ruta"] == "ProductosAlquiler" ||
-                             $_GET["Ruta"] == "AlquilarMaquinaria" ||
-                             $_GET["Ruta"] == "DetalleAlquiler" ||
-                        $_GET["Ruta"] == "AdministrarOrdenesDeCompra" ||
-                        $_GET["Ruta"] == "Salir") {
-                          
+                if ($_GET["Ruta"] == "Inicio" || $_GET["Ruta"] == "Salir") {
                     include "Vistas/Modulos/" . $_GET["Ruta"] . ".php";
-                } else {
+                  
+                }else if($_GET["Ruta"] == "Ventas" ||
+                $_GET["Ruta"] == "CrearVenta" ||
+                $_GET["Ruta"] == "Clientes"){
+                  if($_SESSION["Perfil"] == 'Administrador' || $_SESSION["Perfil"] == 'Ventas'){
+                    include "Vistas/Modulos/" . $_GET["Ruta"] . ".php";
+                  }else{
+                    include "Modulos/404.php";
+                  }
+                }
+                else if($_GET["Ruta"] == "ProductosAlquiler" ||
+                $_GET["Ruta"] == "AlquilarMaquinaria" ||
+                $_GET["Ruta"] == "DetalleAlquiler"){
+                  if($_SESSION["Perfil"] == 'Administrador' || $_SESSION["Perfil"] == 'Alquiler_Maquinarias'){
+                    include "Vistas/Modulos/" . $_GET["Ruta"] . ".php";
+                  }else{
+                    include "Modulos/404.php";
+                  }
+                }
+                else if($_GET["Ruta"] == "Productos" ||
+                $_GET["Ruta"] == "Categorias" ||
+                $_GET["Ruta"] == "Presentacion" ||
+                $_GET["Ruta"] == "Marcas" ||
+                $_GET["Ruta"] == "StockProductos"){
+                  if( $_SESSION["Perfil"] == 'Almacen' || $_SESSION["Perfil"] == 'Administrador' ){
+                    include "Vistas/Modulos/" . $_GET["Ruta"] . ".php";
+                  }else{
+                    include "Modulos/404.php";
+                  }
+                }
+                else if($_GET["Ruta"] == "Personal" ||
+                $_GET["Ruta"] == "Usuarios" ||
+                $_GET["Ruta"] == "Contactos"){
+                  if($_SESSION["Perfil"] == 'Administrador' || $_SESSION["Perfil"] == 'Control_Colaboradores'){
+                    include "Vistas/Modulos/" . $_GET["Ruta"] . ".php";
+                  }else{
+                    include "Modulos/404.php";
+                  }
+                }
+                else if($_GET["Ruta"] == "Perfil" ||
+                $_GET["Ruta"] == "Empresa" ||
+                $_GET["Ruta"] == "OrdenDeCompra" ||
+                $_GET["Ruta"] == "HistorialDePrecios" ||
+                $_GET["Ruta"] == "Indicadores" ||
+                $_GET["Ruta"] == "AdministrarOrdenesDeCompra" ||
+                $_GET["Ruta"] == "Compras" ||
+                $_GET["Ruta"] == "CrearCompra" ||
+                $_GET["Ruta"] == "Proveedores"){
+                  if($_SESSION["Perfil"] == 'Administrador'){
+                    include "Vistas/Modulos/" . $_GET["Ruta"] . ".php";
+                  }else{
+                    include "Modulos/404.php";
+                  }
+                }
+                
+                else {
 
                     include "Modulos/404.php";
                 }
@@ -190,6 +220,9 @@ session_start();
           <?php } ?>
           <?php   if ($_GET["Ruta"] == "DetalleAlquiler"){ ?>
             <script src="Vistas/js/DetalleAlquiler.js"></script>
+          <?php } ?>
+          <?php   if ($_GET["Ruta"] == "Indicadores"){ ?>
+            <script src="Vistas/js/Indicadores.js"></script>
           <?php } ?>
         <?php } ?>
 

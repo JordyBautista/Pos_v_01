@@ -30,13 +30,13 @@ $(".TablaUsuarios").on("click", ".btnEditarUsuario", function () {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-
-            $("#EditarCodigo").val(respuesta["idUsuario"]);
+            console.log(respuesta)
+            $("#EditarPerfil").val(respuesta["idPerfil"]).trigger('change');
             $("#EditarUsuario").val(respuesta["Usuario"]);
-            $("#EditarNombreCorto").val(respuesta["Password"]);
-            $("#EditarEstado").val(respuesta["Estado"]);
-
-
+            $("#EditarEstado").val(respuesta["Estado"]).trigger('change');
+            $("#idUsuario").val(respuesta["idUsuario"]);
+            
+            $('#ModalEditarUsuario').modal('show');
         }
 
     })
