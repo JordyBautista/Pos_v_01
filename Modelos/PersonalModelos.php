@@ -88,7 +88,7 @@ class PersonalModelos {
         } else {
 
             $stmt = ConexionBD::Conecction()->prepare("SELECT P.idPersonal,P.Nombres,P.Apellidos FROM 
-                                                      usuarios as u RIGHT JOIN $tabla AS P 
+                                                      usuario as u RIGHT JOIN $tabla AS P 
                                                       ON P.idPersonal=U.idUsuario 
                                                       WHERE U.idUsuario IS NULL");
             $stmt->execute();

@@ -3,7 +3,7 @@
 class UsuariosControlador {
 
     static public function ctrMostrarUsuarios($item, $valor) {
-        $tabla = "Usuarios";
+        $tabla = "Usuario";
         $respuesta = UsuariosModelo::mdlMostrarUsuarios($tabla, $item, $valor);
         return $respuesta;
     }
@@ -20,7 +20,7 @@ class UsuariosControlador {
 
                 $encriptar = crypt($_POST["txtContraseña"],'$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
-                $tabla = "Usuarios";
+                $tabla = "Usuario";
                 $item = "Usuario";
                 $valor = $_POST["txtUsuario"];
                 $respuesta = UsuariosModelo::mdlMostrarUsuarios($tabla, $item, $valor);
@@ -69,7 +69,7 @@ class UsuariosControlador {
 
         if (isset($_POST["IngresoUsuario"])) {
             if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["IngresoUsuario"])) {
-                $tabla = "usuarios";
+                $tabla = "usuario";
 
                 $encriptar = crypt($_POST["IngresoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
@@ -128,7 +128,7 @@ class UsuariosControlador {
             if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["EditarUsuario"])) {
 
 
-                $tabla = "usuarios";
+                $tabla = "usuario";
 
                 $datos = array("usuario" => $_POST["EditarUsuario"],
                     "idUsuario" => $_POST["idUsuario"],
@@ -191,7 +191,7 @@ class UsuariosControlador {
     static public function ctrEliminarUsuario() {
 
         if (isset($_GET["idUsuario"])) {
-            $tabla = "Usuarios";
+            $tabla = "Usuario";
             $datos = $_GET["idUsuario"];
             $respuesta = UsuariosModelo::mdlEliminarUsuario($tabla, $datos);
 
