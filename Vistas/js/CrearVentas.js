@@ -62,7 +62,6 @@ function getNewCode(){
         url: "Ajax/Ventas.Ajax.php",
         data: {type: 'obtener_codigo'},
         success: function (respuesta) {
-            console.log(respuesta)
             let dato = respuesta.substr(0,10);
             $('#codigoVenta').html(respuesta);
         },
@@ -327,7 +326,7 @@ init();
 
 
 
-$("#ModalVenta").on("change", "input.EfectivoRecibido", function(){
+$("#ModalVenta").on("keyup", "input.EfectivoRecibido", function(){
     
 var MontoTotal=$("#MontoPagar").val();
 var MontoRecibido=$("#EfectivoRecibido").val();

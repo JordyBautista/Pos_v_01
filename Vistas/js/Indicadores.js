@@ -67,14 +67,14 @@ function show_indicador_uno(labels, values, description){
         datasets: [{
             label: "Result",
             data: values,
-            boderColor: 'rgb(228, 88, 103)',
-            backgroundColor:  'rgba(228, 88, 103, 0.3)',
+            boderColor: 'rgb(120, 178, 216)',
+            backgroundColor:  'rgba(120, 178, 216, 0.3)',
             order: 1
         }, {
             label: "Result Line",
             data: values,
-            borderColor: 'rgb(119, 227, 13)',
-            backgroundColor: 'rgba(119, 227, 13, 0.3)',
+            borderColor: 'rgb(93, 201, 97)',
+            backgroundColor: 'rgba(93, 201, 97, 0.3)',
             type: 'line',
             order: 0
         }]
@@ -165,14 +165,14 @@ function show_indicador_dos(labels, values, description){
         datasets: [{
             label: "Result",
             data: values,
-            boderColor: 'rgb(228, 88, 103)',
-            backgroundColor:  'rgba(228, 88, 103, 0.3)',
+            boderColor: 'rgb(120, 178, 216)',
+            backgroundColor:  'rgba(120, 178, 216, 0.3)',
             order: 1
         }, {
             label: "Result Line",
             data: values,
-            borderColor: 'rgb(119, 227, 13)',
-            backgroundColor: 'rgba(119, 227, 13, 0.3)',
+            borderColor: 'rgb(93, 201, 97)',
+            backgroundColor: 'rgba(93, 201, 97, 0.3)',
             type: 'line',
             order: 0
         }]
@@ -250,14 +250,14 @@ function show_indicador_tres(labels, values, description){
         datasets: [{
             label: "Result",
             data: values,
-            boderColor: 'rgb(228, 88, 103)',
-            backgroundColor:  'rgba(228, 88, 103, 0.3)',
+            boderColor: 'rgb(120, 178, 216)',
+            backgroundColor:  'rgba(120, 178, 216, 0.3)',
             order: 1
         }, {
             label: "Result Line",
             data: values,
-            borderColor: 'rgb(119, 227, 13)',
-            backgroundColor: 'rgba(119, 227, 13, 0.3)',
+            borderColor: 'rgb(93, 201, 97)',
+            backgroundColor: 'rgba(93, 201, 97, 0.3)',
             type: 'line',
             order: 0
         }]

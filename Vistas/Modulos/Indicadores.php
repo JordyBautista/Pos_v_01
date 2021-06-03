@@ -25,19 +25,6 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-5">
-                                <select class="form-control" id="productoIndicadores">
-                                    <option value>Seleccione</option>
-                                    <?php
-                                    $Productos = ProductosControlador::ctrMostrarProductos(null, null);
-
-                                    foreach ($Productos as $key => $value) {
-
-                                        echo '<option value="' . $value["idProducto"] . '" >' . $value["NombreProducto"] . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                             <div class="col-md-3">
                                 <select class="form-control" id="anios">
                                     <option value>Seleccione</option>
@@ -52,6 +39,20 @@
                                     ?>
                                 </select>
                             </div>
+                            <div class="col-md-5">
+                                <select class="form-control" id="productoIndicadores">
+                                    <option value>Seleccione</option>
+                                    <?php
+                                    $Productos = ProductosControlador::ctrMostrarProductos(null, null);
+
+                                    foreach ($Productos as $key => $value) {
+
+                                        echo '<option value="' . $value["idProducto"] . '" >' . $value["NombreProducto"] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -62,19 +63,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
-                                <select class="form-control" id="alquilerIndicadores">
-                                    <option value>Seleccione</option>
-                                    <?php
-                                    $alq = ProductosAlquilerControlador::ctrMostrarProductosAlquiler(null, null);
-
-                                    foreach ($alq as $key => $value) {
-
-                                        echo '<option value="' . $value["idProductoAlquiler"] . '" >' . $value["Placa"] . '</option>';
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                             <div class="col-md-3">
                                 <select class="form-control" id="aniosAlquiler">
                                     <option value>Seleccione</option>
@@ -89,6 +77,20 @@
                                     ?>
                                 </select>
                             </div>
+                            <div class="col-md-5">
+                                <select class="form-control" id="alquilerIndicadores">
+                                    <option value>Seleccione</option>
+                                    <?php
+                                    $alq = ProductosAlquilerControlador::ctrMostrarProductosAlquiler(null, null);
+
+                                    foreach ($alq as $key => $value) {
+
+                                        echo '<option value="' . $value["idProductoAlquiler"] . '" >' . $value["Placa"] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-md-6">

@@ -45,11 +45,10 @@
                             <th>Codigo</th>
                             <th>Proveedor</th>
                             <th>Sub total</th>
-                            <th>IGV</th>
-                            <th>Dscto</th>
                             <th>Total</th>
                             <th>Fecha</th>
                             <th>Estado</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>

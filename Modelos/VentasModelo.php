@@ -20,8 +20,9 @@ class VentasModelo {
         $sql = ConexionBD::Conecction();
         $stmt = $sql->prepare("INSERT INTO ".$tabla."(Codigo, idCliente, idVendedor, Impuesto, Neto,Descuento,tipoVenta, Total, MetodoPago,Estado,efectivoRecibido) VALUES (:Codigo,:idCliente,:idVendedor,:Impuesto,:Neto,:Descuento,:tipoVenta,:Total,:MetodoPago,:Estado, :efectivoRecibido)");
         $idUsuario = $datos["idUsuario"];
+        $codigo = trim($datos["codigoVenta"]);
         $efectivoRecibido = $datos["efectivoRecibido"] == '' ? '0.00' :$datos["efectivoRecibido"] ;
-        $stmt->bindParam(":Codigo", $datos["codigoVenta"], PDO::PARAM_STR);
+        $stmt->bindParam(":Codigo", $codigo, PDO::PARAM_STR);
         $stmt->bindParam(":idCliente", $datos["idCliente"], PDO::PARAM_STR);
         $stmt->bindParam(":idVendedor", $idUsuario, PDO::PARAM_STR);
         $stmt->bindParam(":Impuesto", $datos["igv"], PDO::PARAM_STR);

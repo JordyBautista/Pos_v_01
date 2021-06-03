@@ -44,8 +44,8 @@ class ComprasControlador {
                 $producto = ProductosModelo::mdlMostrarProductos('productos','idProducto',$item['idProducto'])[0];
                 $html.= "<tr><th>".$producto['NombreProducto']."</th><th>".$item['cantidad']."</th><th>".$item['importe']."</th></tr>";
             }
-            $html.= "</tbody><tfoot><tr><td></td><td><p><b>SubTotal</b></p><p><b>IGV</b></p><p><b>Dscto</b></p><p><b>Total</b></p></td>";
-            $html.= "<td><p>".$compra['subTotal']."</p><p>".$compra['igv']."</p><p>".$compra['dscto']."</p><p>".$compra['total']."</p></td></tr></tfoot>";
+            $html.= "</tbody><tfoot><tr><td></td><td><p><b>SubTotal</b></p><p><b>Total</b></p></td>";
+            $html.= "<td><p>".$compra['subTotal']."</p><p>".$compra['total']."</p></td></tr></tfoot>";
             $result['detalle'] = $html;
 
             return $result;

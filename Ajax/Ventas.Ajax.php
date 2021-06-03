@@ -5,8 +5,10 @@ require_once "../Modelos/VentasModelo.php";
 require_once "../Modelos/ProductosModelo.php";
 require_once "../Modelos/ClientesModelo.php";
 require_once "../Modelos/UsuariosModelo.php";
+require '../vendor/autoload.php';
 
 class AjaxVentas {
+
     /* =============================================
       EDITAR Venta
       ============================================= */
@@ -55,7 +57,7 @@ class AjaxVentas {
           }
           $estado_boton = "<button class='btn btn-sm bg-".$color."' ".$funcion.">".$estado."</button>";
           $cliente = ClientesModelo::mdlMostrarClientes('clientes','idCliente',$item['idCliente']);
-          $usuario = UsuariosModelo::mdlMostrarUsuarios('usuarios','idUsuario',$item['idVendedor']);
+          $usuario = UsuariosModelo::mdlMostrarUsuarios('usuario','idUsuario',$item['idVendedor']);
           $sub_array[] = $key +1;
           $sub_array[] = $item['Codigo'];
           $sub_array[] = $cliente['Nombres'];
@@ -65,6 +67,8 @@ class AjaxVentas {
           $sub_array[] = $item['Fecha'];
           $sub_array[] = $estado_boton;
           $sub_array[] ="<button class='btn btn-primary' onclick='verDetalle(" . $item['idVenta'] . ")'><i class='fas fa-eye'></i></button>";
+          $sub_array[] ="<a target='_blank' class='btn btn-danger' href='Ajax/PdfVentas.php?cod=" . $item['Codigo'] . "'><i class='fas fa-file-pdf'></i></a>";
+          $sub_array[] ="<button class='btn btn-success' onclick='EnviarCorreo(" . $item['idVenta'] . ")'><i class='fas fa-envelope-square'></i></button>";
 
           $data[] = $sub_array;
       }
@@ -98,6 +102,10 @@ class AjaxVentas {
     
     echo $nuevoCodigo;
   }
+
+  public function pdf(){
+    VentasControlador::ctrEnviarCorreo($this->idVenta);
+  }
 }
 
 /* =============================================
@@ -114,6 +122,10 @@ if (isset($_POST["idVenta"])) {
       $Venta = new AjaxVentas();
       $Venta->estado = $_GET["estado"];
       $Venta->mostrarTablaVenta();
+  }else if($_GET["type"] == 'pdf_ventas'){
+    $Venta = new AjaxVentas();
+    $Venta->idVenta = $_GET["id"];
+    $Venta->pdf();
   }else if($_GET["type"] == 'ver_detalle'){
       $Venta = new AjaxVentas();
       $Venta->idVenta = $_GET["id"];

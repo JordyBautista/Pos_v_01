@@ -48,7 +48,7 @@ class ComprasModelo {
 
     static public function mdlCrearCompra($tabla, $datos, $codigo) {
         $sql = ConexionBD::Conecction();
-        $stmt = $sql->prepare("INSERT INTO ".$tabla."(codigoCompra, codProveedor,estado, subTotal, dscto,total,idUsuario, fechaRegistro) VALUES (:codigoCompra,:codProveedor,:estado,:subTotal,:dscto,:total,:idUsuario,now())");
+        $stmt = $sql->prepare("INSERT INTO ".$tabla."(codigoCompra, codProveedor,estado, subTotal,total,idUsuario, fechaRegistro) VALUES (:codigoCompra,:codProveedor,:estado,:subTotal,:total,:idUsuario,now())");
         $detault = '1';
         //$date = date('Y-m-d H:i:s');
         $idUsuario = $datos["idUsuario"];
@@ -56,7 +56,6 @@ class ComprasModelo {
         $stmt->bindParam(":codProveedor", $datos["idProveedor"], PDO::PARAM_STR);
         $stmt->bindParam(":estado", $detault, PDO::PARAM_STR);
         $stmt->bindParam(":subTotal", $datos["subtotal"], PDO::PARAM_STR);
-        $stmt->bindParam(":dscto", $datos["dscto"], PDO::PARAM_STR);
         $stmt->bindParam(":total", $datos["totalfinal"], PDO::PARAM_STR);
         $stmt->bindParam(":idUsuario", $idUsuario, PDO::PARAM_STR);
         //$stmt->bindParam(":fechaRegistro", $date , PDO::PARAM_STR);

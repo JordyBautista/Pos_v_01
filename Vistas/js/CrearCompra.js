@@ -267,8 +267,7 @@ function precioTotal() {
     $('#subTotal').html(sumaSubTotal);
     $('#SubTotal').val(sumaSubTotal);
     let igv = (sumaSubTotal * 0.18).toFixed(2);
-    $('#igv').html(igv);
-    $('#IGV').val(igv);
+    
     igv = parseFloat(igv)
     //console.log(sumaSubTotal + igv);
     let total = (sumaSubTotal + igv).toFixed(2);
@@ -278,12 +277,7 @@ function precioTotal() {
     $('#totalFinal').html(total);
     $('#TotalFinal').val(total);
      $('#MontoPagar').val(total);
-    
-    if(sumaSubTotal == 0 || sumaSubTotal == 0.00){
-        DsctoHabilitar(false);
-    }else{
-        DsctoHabilitar(true);
-    }
+
 }
 
 function CalcularPrecioProducto(opj, Precio, index) {
@@ -293,13 +287,6 @@ function CalcularPrecioProducto(opj, Precio, index) {
     precioTotal();
 }
 
-function  DsctoHabilitar(valor){
-    if(valor){
-        $("#dscto").removeAttr('disabled');
-    }else{
-        $("#dscto").attr('disabled','disabled');
-    }
-}
 function isEmpty(data){
     if (data == '') {
         return true;
@@ -322,14 +309,13 @@ function guardarCompra(){
     //let metodoPago = $('#metodoPago').val();
     let subtotal = $('#SubTotal').val();
     let totalfinal =  $('#TotalFinal').val();
-    let dscto =  $('#dscto').val(); 
     //let codigoVenta =  $('#codigoVenta').html(); 
     let idProveedor =  $('#idProveedor').val();
     if (!isEmpty(totalfinal) && !isEmpty(idProveedor) && !(cantidadRow == 0)) {        
         $.ajax({
             type: "post",
             url: "Ajax/CompraAjax.php",
-            data: {dscto,idProveedor,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_compra'},
+            data: {idProveedor,totalfinal, subtotal,igv, items: JSON.stringify(items), type: 'crear_compra'},
             success: function (response) {
                 console.log(response)
                 if (response) {

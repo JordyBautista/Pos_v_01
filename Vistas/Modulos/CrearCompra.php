@@ -100,10 +100,6 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th>Descuento:</th>
-                                                <td><input style="border: none;" disabled="disabled" type="number" min="0" max="100" id="dscto" name='dscto' value="0"></td>
-                                            </tr>
-                                            <tr>
                                                 <th>Total:</th>
                                                 <td>
                                                     <span id="totalFinal"></span>

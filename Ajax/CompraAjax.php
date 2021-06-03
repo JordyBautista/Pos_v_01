@@ -44,13 +44,12 @@ class CompraAjax {
             $sub_array[] = $item['codigoCompra'];
             $sub_array[] = $proveedor['RazonSocial'];
             $sub_array[] = $item['subTotal'];
-            $sub_array[] = $item['igv'];
-            $sub_array[] = $item['dscto'];
             $sub_array[] = $item['total'];
             $sub_array[] = $item['fechaRegistro'];
             $sub_array[] = $estado_boton;
             $sub_array[] ="<button class='btn btn-primary' onclick='verDetalle(" . $item['idCompra'] . ")'><i class='fas fa-eye'></i></button>";
-
+            $sub_array[] ="<a target='_blank' class='btn btn-danger' href='Ajax/PdfCompras.php?cod=" . $item['codigoCompra'] . "'><i class='fas fa-file-pdf'></i></a>";
+          
             $data[] = $sub_array;
         }
         $results = array(
@@ -109,7 +108,6 @@ if (isset($_GET["type"])){
         $Compra = new CompraAjax();
         $Compra->data = [
           'idUsuario' => $_SESSION["idUsuario"] ,
-          'dscto' => $_POST["dscto"] ,
           'idProveedor' => $_POST['idProveedor'],
           'totalfinal' => $_POST['totalfinal'],
           'subtotal' => $_POST['subtotal'],

@@ -12,7 +12,7 @@ class ProductosModelo {
         $stmt = ConexionBD::Conecction()->prepare("UPDATE productos SET  Stock=:Stock  WHERE idProducto=:idProducto");
 
         $stmt->bindParam(":Stock", $stock, PDO::PARAM_INT);
-        $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_INT);
+        $stmt->bindParam(":idProducto", $idProducto, PDO::PARAM_STR);
         return $stmt->execute();
       }
 

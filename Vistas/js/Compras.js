@@ -17,7 +17,7 @@ function buscar_compras(estado){
                 data: {type:'obtener_compras', estado},
                 dataType : "json",						
                 error: function(e){
-                        
+                        console.log(e)
                 }
             },
             "bDestroy": true,

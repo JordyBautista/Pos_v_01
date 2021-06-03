@@ -5,7 +5,8 @@
             <div class="row mb-2 ">
                 <div class="col-sm-6">
                     <h5>Nueva venta</h5>
-                    <button class="btn btn-primary" onclick="probando()">Probando</button>
+                    <!-- <a href="Ajax/PdfVentas.php?cod=0000000001" class="btn btn-primary">pdf</a>
+                    <button onclick="probando()"  class="btn btn-primary">Email</button> -->
                 </div>
                 <div class="col-sm-6">
 
