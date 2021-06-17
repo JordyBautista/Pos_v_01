@@ -5,6 +5,8 @@ require_once "../Modelos/CompraModelo.php";
 require_once "../Modelos/ProductosModelo.php";
 require_once "../Modelos/ProveedoresModelo.php";
 
+require '../vendor/autoload.php';
+
 class CompraAjax {
     /* =============================================
       EDITAR Venta
@@ -49,7 +51,8 @@ class CompraAjax {
             $sub_array[] = $estado_boton;
             $sub_array[] ="<button class='btn btn-primary' onclick='verDetalle(" . $item['idCompra'] . ")'><i class='fas fa-eye'></i></button>";
             $sub_array[] ="<a target='_blank' class='btn btn-danger' href='Ajax/PdfCompras.php?cod=" . $item['codigoCompra'] . "'><i class='fas fa-file-pdf'></i></a>";
-          
+            $sub_array[] ="<button class='btn btn-success' onclick='EnviarCorreo(" . $item['idCompra'] . ")'><i class='fas fa-envelope-square'></i></button>";
+
             $data[] = $sub_array;
         }
         $results = array(
@@ -75,6 +78,9 @@ class CompraAjax {
     public function ajaxRealizarCompra(){
       echo ComprasControlador::ctrCrearCompra($this->data);
     }
+    public function pdf(){
+        ComprasControlador::ctrEnviarCorreo($this->idCompra);
+      }
 }
 
 /* =============================================
@@ -85,7 +91,11 @@ if (isset($_GET["type"])){
         $Compra = new CompraAjax();
         $Compra->estado = $_GET["estado"];
         $Compra->mostrarTablaCompra();
-    }
+    }else if($_GET["type"] == 'pdf_compras'){
+        $Compra = new CompraAjax();
+        $Compra->idCompra = $_GET["id"];
+        $Compra->pdf();
+      }else
 
     if($_GET["type"] == 'ver_detalle'){
         $Compra = new CompraAjax();

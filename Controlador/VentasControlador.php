@@ -342,7 +342,7 @@ class VentasControlador {
       $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
         
       //$mail->setFrom('correo del que envi', 'nombre del que envia');
-      $mail->setFrom('', 'Mailer');
+      $mail->setFrom('', '');
 
       
       $mail->addAddress($cliente['Correo'], $cliente['Nombres']); 

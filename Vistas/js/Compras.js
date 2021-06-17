@@ -152,3 +152,24 @@ function verDetalle(id){
         }
     });
 }
+
+function EnviarCorreo(id){
+    Swal.fire({
+        title: '¿Desea enviar el correo?',
+        showCancelButton: true,
+        confirmButtonText: `Enviar`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "get",
+                url: "Ajax/CompraAjax.php",
+                data: {type:'pdf_compras',id},
+                success: function (response) {
+                   //console.log(response)
+                }
+            });
+        }
+      })
+
+}

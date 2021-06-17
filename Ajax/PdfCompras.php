@@ -141,4 +141,4 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('A4');
 $dompdf->render();
 // solo descarga, quitar el return y no pasar parametros al string
-return $dompdf->stream('SupplyDetail.pdf',array('Attachment'=>0));
+return $dompdf->stream('pedidocompra.pdf',array('Attachment'=>0));
