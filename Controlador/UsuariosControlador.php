@@ -34,7 +34,7 @@ class UsuariosControlador {
     
                             $item1 = "idPersonal";
                             $valor1 = $respuesta["idUsuario"];
-                            $Personal = PersonalControlador::ctrMostrarPersonal($item1, $valor1);
+                            $Personal = PersonalControlador::ctrMostrarPersonal($item1, $respuesta["idPersonal"]);
                             $item2 = 'idPerfil';
                             $valor = $respuesta["idPerfil"];
                             $orden = 'idPerfil';
