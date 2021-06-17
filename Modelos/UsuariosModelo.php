@@ -8,8 +8,9 @@ class UsuariosModelo {
 
     static public function mdlCrearUsuario($tabla, $datos) {
         $estado = 1;
-        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla(idPerfil,Usuario,Contrasena, Estado, FechaRegistro) VALUES(:idPerfil,:Usuario,:pw, :estado, now())");
+        $stmt = ConexionBD::Conecction()->prepare("INSERT INTO $tabla(idPersonal,idPerfil,Usuario,Contrasena, Estado, FechaRegistro) VALUES(:idPersonal,:idPerfil,:Usuario,:pw, :estado, now())");
 
+        $stmt->bindParam(":idPersonal", $datos["idPersonal"], PDO::PARAM_STR);
         $stmt->bindParam(":idPerfil", $datos["idPerfil"], PDO::PARAM_STR);
         $stmt->bindParam(":Usuario", $datos["Usuario"], PDO::PARAM_STR);
         $stmt->bindParam(":pw", $datos["Password"], PDO::PARAM_STR);

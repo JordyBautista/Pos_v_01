@@ -74,6 +74,7 @@ class UsuariosControlador {
                 $encriptar = crypt($_POST["IngresoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
                 $datos = array(
+                    "idPersonal" => $_POST["IngresoPersonal"],
                     "idPerfil" => $_POST["IngresoPerfil"],
                     "Usuario" => $_POST["IngresoUsuario"],
                     "Password" => $encriptar);

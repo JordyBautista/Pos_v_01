@@ -32,7 +32,7 @@ class UsuariosDataTableAjax {
               TRAEMOS EL PERSONAL
               ============================================= */
             $item2 = "idPersonal";
-            $valor2 = $Usuario[$i]["idUsuario"];
+            $valor2 = $Usuario[$i]["idPersonal"];
             $Personal = PersonalControlador::ctrMostrarPersonal($item2, $valor2);
             $Personal2=$Personal["Nombres"].'  '.$Personal["Apellidos"];
 
