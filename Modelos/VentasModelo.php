@@ -15,6 +15,13 @@ class VentasModelo {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
       }
+      static public function mdlVentas($idCliente){
+
+        $stmt = ConexionBD::Conecction()->prepare("SELECT count(idVenta) as cantidad FROM ventas where idCliente = :idCliente");
+        $stmt->bindParam(":idCliente", $idCliente, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch();
+      }
 
     static public function mdlCrearVenta($tabla, $datos, $estado) {
         $sql = ConexionBD::Conecction();

@@ -72,6 +72,19 @@ class ClientesModelo {
         $stmt = null;
     }
 
+    static public function mdlModificarUltimaVenta($datos) {
+        $stmt = ConexionBD::Conecction()->prepare("UPDATE clientes SET UltimaCompra = now(), Compras = :Compras  WHERE idCliente = :idCliente");
+        $stmt->bindParam(":Compras", $datos['Compras'], PDO::PARAM_INT);
+        $stmt->bindParam(":idCliente", $datos['idCliente'], PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return "ok";
+        } else {
+            return "error";
+        }
+        $stmt->close();
+        $stmt = null;
+    }
+
     /* =============================================
       ELIMINAR Cliente
       ============================================= */

@@ -68,6 +68,9 @@ class VentasControlador {
         $estado = $data['tipoVenta'] == 'venta' ? '2' : '1';
         $id = VentasModelo::mdlCrearVenta("ventas",$data, $estado);
         $value = false;
+
+        //$cliente = ClientesModelo::mdlMostrarClientes('clientes', 'idCliente', $data["idCliente"]);
+
         if($id > 0){
             foreach ($data['items'] as $key => $item) {
                 
@@ -78,6 +81,12 @@ class VentasControlador {
                     ProductosModelo::actualizar_stock($nuevo_stock, $item->idProducto);
                 }
             }
+            $cliente_cantidad = VentasModelo::mdlVentas($data["idCliente"]);
+            $cliente_arr = [
+                'Compras' => $cliente_cantidad['cantidad'],
+                'idCliente' => $data["idCliente"],
+            ];
+            ClientesModelo::mdlModificarUltimaVenta($cliente_arr);
             VentasControlador::ctrEnviarCorreo($id);
         }
         return $value;
