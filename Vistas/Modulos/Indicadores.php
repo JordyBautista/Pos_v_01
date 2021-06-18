@@ -56,9 +56,15 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="d-flex justify-content-center">
+                                    <img style="width: 70%;" src="Vistas/img/Indicadores/rotacion_stock.JPG" alt="">
+                                </div>
                                 <canvas id="chartIndicadorUno" width="400" height="400"></canvas>
                             </div>
                             <div class="col-md-6">
+                                <div class="d-flex justify-content-center">
+                                    <img style="width: 70%;"  src="Vistas/img/Indicadores/volumen_compras.JPG" alt="">
+                                </div>   
                                 <canvas id="chartIndicadorTres" width="400" height="400"></canvas>
                             </div>
                         </div>
@@ -94,6 +100,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <div class="d-flex justify-content-center">
+                                    <img style="width: 70%;" src="Vistas/img/Indicadores/disponibilidad.JPG" alt="">
+                                </div>
                                 <canvas id="chartIndicadorDos" width="400" height="400"></canvas>
                             </div>
                         </div>

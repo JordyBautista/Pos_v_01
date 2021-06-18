@@ -144,7 +144,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-5" id="widget_parent">
+                            <div class="col-md-5" id="widget_parent_devolu">
                                 Seleccionar Fecha Devolucion:
                                 <div class="input-group date" id="datetimepicker_devolucion">
                                     <input id="datetimepicker_input_devolucion" readonly type="text" value="" class="form-control" placeholder="DD/NN/YYYY HH:mm"/>

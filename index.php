@@ -35,6 +35,7 @@ require_once 'Modelos/ClientesModelo.php';
 require_once 'Modelos/EmpresaModelo.php';
 require_once 'Modelos/ProductosAlquilerModelo.php';
 require_once "Modelos/IndicadorModelo.php";
+require_once "Modelos/InicioModelo.php";
 
 
 

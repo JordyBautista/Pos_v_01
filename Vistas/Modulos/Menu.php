@@ -179,16 +179,17 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                    <li class="nav-item CrearVenta" value="CrearVenta">
+                            <a href="CrearVenta" class="nav-link">
+                                <p>Crear Ventas</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="Ventas" class="nav-link">
                                 <p>administrar ventas</p>
                             </a>
                         </li>
-                        <li class="nav-item CrearVenta" value="CrearVenta">
-                            <a href="CrearVenta" class="nav-link">
-                                <p>Crear Ventas</p>
-                            </a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a href="Clientes" class="nav-link">
                                 <p>Clientes</p>

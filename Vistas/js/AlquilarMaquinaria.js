@@ -84,7 +84,7 @@ $('#datetimepicker_devolucion').datetimepicker({
     minDate: new Date(),
     allowInputToggle: true,
     ignoreReadonly: true,
-    widgetParent: '#widget_parent',
+    widgetParent: '#widget_parent_devolu',
     //showClose: true,
     showClear: true,
     showTodayButton: true,

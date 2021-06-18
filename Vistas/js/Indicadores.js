@@ -50,7 +50,7 @@ function indicadorUno(){
                     data_value.push(num['indicador']);
                     data_month_day.push(num['month_or_day']);
                 });
-                show_indicador_uno(data_month_day, data_value, 'Indice de Rotacion de Stock');
+                show_indicador_uno(data_month_day, data_value, 'Rotacion de Stock');
             }
         });
     }
@@ -84,6 +84,13 @@ function show_indicador_uno(labels, values, description){
         type: 'bar',
         data: data,
         options: {
+            tooltips: {
+                callbacks: {
+                   afterBody: function(t, d) {
+                      return 'loss 15%'; //return a string that you wish to append
+                   }
+                }
+             },
             plugins: {
                 title: {
                     display: true,
