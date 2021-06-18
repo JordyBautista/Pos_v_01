@@ -50,7 +50,7 @@ function indicadorUno(){
                     data_value.push(num['indicador']);
                     data_month_day.push(num['month_or_day']);
                 });
-                show_indicador_uno(data_month_day, data_value, 'Indice de rotacion');
+                show_indicador_uno(data_month_day, data_value, 'Indice de Rotacion de Stock');
             }
         });
     }
