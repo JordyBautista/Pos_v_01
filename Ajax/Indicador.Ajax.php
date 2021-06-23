@@ -28,8 +28,10 @@ class AjaxIndicador {
             }
             $indicador = round((($venta == 0) ? 0 : ($compra / $venta)), 2);
             $response[] = [
-                // 'indicador' => ($venta != 0) ? $venta['sumatoriaVentas'] : 'no',
-                // 'indicador2' => ($venta != 0) ?  $compra['sumatoriaCompras'] : 'no',
+                'data' => [
+                    'total_compras' => $compra,
+                    'total_ventas' => $venta,
+                ],
                 'indicador' => $indicador,
                 'month_or_day' => $month[$i - 1],
             ];
@@ -63,6 +65,10 @@ class AjaxIndicador {
             }
             $indicador = round((($venta == 0) ? 0 : ($compra / $venta)), 1);
             $response[] = [
+                'data' => [
+                    'salidas' => $compra,
+                    'indice_rotacion' => $venta,
+                ],
                 'indicador' => $indicador,
                 'month_or_day' => $month[$i - 1],
             ];

@@ -40,17 +40,19 @@ function indicadorUno(){
         $.ajax({
             type: "get",
             url: "Ajax/Indicador.Ajax.php",
-            data: {type:'uno',year, idProducto, grupo},
+            data: {type:'inventario',year, idProducto, grupo},
             success: function (response) {
                 response = JSON.parse(response)
                 //console.log(response)
                 let data_month_day = [];
                 let data_value = [];
+                let info = [];
                 response.map(function(num){
                     data_value.push(num['indicador']);
                     data_month_day.push(num['month_or_day']);
+                    info.push(num['data'])
                 });
-                show_indicador_uno(data_month_day, data_value, 'Rotacion de Stock');
+                show_indicador_uno(data_month_day, data_value, 'Rotacion de Stock', info);
             }
         });
     }
@@ -60,7 +62,7 @@ function indicadorUno(){
 var ctx = document.getElementById("chartIndicadorUno");
 var chartIndicadorUno = new Chart(ctx,null );
 
-function show_indicador_uno(labels, values, description){
+function show_indicador_uno(labels, values, description, info){
     chartIndicadorUno.destroy();
     let data = {
         labels: labels,
@@ -84,14 +86,14 @@ function show_indicador_uno(labels, values, description){
         type: 'bar',
         data: data,
         options: {
-            tooltips: {
-                callbacks: {
-                   afterBody: function(t, d) {
-                      return 'loss 15%'; //return a string that you wish to append
-                   }
-                }
-             },
             plugins: {
+                tooltip: {
+                    callbacks: {
+                       footer: function(item, everything){
+                            return '(Salidas:'+info[item[0].dataIndex]['salidas']+', Indice de rotacion:'+info[item[0].dataIndex]['indice_rotacion']+')';
+                       }
+                    }
+                 },
                 title: {
                     display: true,
                     text: description,
@@ -137,7 +139,6 @@ $('#alquilerIndicadores').change(function (e) {
             data: {type:'dates',year, idProducto, grupo},
             success: function (response) {
                 response = JSON.parse(response)
-                console.log(response)
                 indicadorDos(response)
             }
         });
@@ -151,6 +152,7 @@ function indicadorDos(response){
     let tiempo_disponible = 0;
     let label_mes = [];
     let disponibilidad = [];
+    let info = [];
     for (let index = 0; index < response.length; index++) {
         let fecha_salida = moment(response[index]['fechaSalida'])
         let fecha_devolucion = moment(response[index]['fechaDevolucion'])
@@ -162,10 +164,11 @@ function indicadorDos(response){
         let result = (tiempo_disponible == 0) ? 0 : (tiempo_operativo/tiempo_disponible).toFixed(0);
         disponibilidad.push(result)
         label_mes.push(mes[response[index]['MONTH'] - 1])
+        info.push({'tiempo': tiempo_operativo, 'tiempo_disponible':tiempo_disponible})
     }
-    show_indicador_dos(label_mes, disponibilidad, 'Disponibilidad');
+    show_indicador_dos(label_mes, disponibilidad, 'Disponibilidad', info);
 }
-function show_indicador_dos(labels, values, description){
+function show_indicador_dos(labels, values, description, info){
     chartIndicadorDos.destroy();
     let data = {
         labels: labels,
@@ -190,6 +193,13 @@ function show_indicador_dos(labels, values, description){
         data: data,
         options: {
             plugins: {
+                tooltip: {
+                    callbacks: {
+                       footer: function(item, everything){
+                            return '(Tiempo Operativo: '+info[item[0].dataIndex].tiempo+' dias, Tiempo Disponible: '+info[item[0].dataIndex].tiempo_disponible+' dias)';
+                       }
+                    }
+                 },
                 title: {
                     display: true,
                     text: description,
@@ -234,23 +244,25 @@ function indicadorTres(){
         $.ajax({
             type: "get",
             url: "Ajax/Indicador.Ajax.php",
-            data: {type:'inventario',year, idProducto, grupo},
+            data: {type:'uno',year, idProducto, grupo},
             success: function (response) {
                 response = JSON.parse(response)
                 //console.log(response)
                 let data_month_day = [];
                 let data_value = [];
+                let info = [];
                 response.map(function(num){
                     data_value.push(num['indicador']);
                     data_month_day.push(num['month_or_day']);
+                    info.push(num['data'])
                 });
-                show_indicador_tres(data_month_day, data_value, 'Volumen de Compras');
+                show_indicador_tres(data_month_day, data_value, 'Volumen de Compras',info);
             }
         });
     }
    
 }
-function show_indicador_tres(labels, values, description){
+function show_indicador_tres(labels, values, description,info){
     chartIndicadorTres.destroy();
     let data = {
         labels: labels,
@@ -275,6 +287,14 @@ function show_indicador_tres(labels, values, description){
         data: data,
         options: {
             plugins: {
+                tooltip: {
+                    callbacks: {
+                       footer: function(item, everything){
+                           console.log(info[5])
+                            return '(Total Compras:'+info[item[0].dataIndex]['total_compras']+', Total Ventas:'+info[item[0].dataIndex]['total_ventas']+')';
+                       }
+                    }
+                 },
                 title: {
                     display: true,
                     text: description,
