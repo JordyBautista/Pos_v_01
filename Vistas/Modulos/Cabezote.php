@@ -10,7 +10,7 @@
         </li>
     </ul>
     <li class="nav-item d-none d-sm-inline-block ">
-        <span >"......................................SERVICIOS GENERALES ROBLADILLO......................................"</span>
+        <span >SERVICIOS GENERALES ROBLADILLO</span>
     </li>
 
 
@@ -55,9 +55,9 @@
                         </div>
                     </div>
                     <!-- Message End -->
-                </a>
+                    </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                
                     <!-- Message Start -->
                     <div class="media">
                         <img src="#" alt="User Avatar" class="img-size-50 img-circle mr-3">

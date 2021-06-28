@@ -10,7 +10,7 @@
                 <div class="col-sm-6 ">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="Inicio"><i class="nav-icon fas fa-home pr-1 text-dark"></i>Inicio</a></li> 
-                        <li class="breadcrumb-item"><a href="Personal">Gestion de personal</a></li>
+                        <li class="breadcrumb-item"><a href="Personal">Control de Colaboradores</a></li>
                         <li class="breadcrumb-item active text-dark">Contactos</li>
                     </ol>
                 </div>
